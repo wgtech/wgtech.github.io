@@ -309,12 +309,6 @@
     
       <category term="Kubernetes" scheme="https://wgtech.github.io/tags/Kubernetes/"/>
     
-      <category term="Container" scheme="https://wgtech.github.io/tags/Container/"/>
-    
-      <category term="Container Orchestration" scheme="https://wgtech.github.io/tags/Container-Orchestration/"/>
-    
-      <category term="Server" scheme="https://wgtech.github.io/tags/Server/"/>
-    
       <category term="Desired State" scheme="https://wgtech.github.io/tags/Desired-State/"/>
     
       <category term="ReplicaSet" scheme="https://wgtech.github.io/tags/ReplicaSet/"/>
@@ -324,6 +318,12 @@
       <category term="Volume" scheme="https://wgtech.github.io/tags/Volume/"/>
     
       <category term="Services" scheme="https://wgtech.github.io/tags/Services/"/>
+    
+      <category term="Container" scheme="https://wgtech.github.io/tags/Container/"/>
+    
+      <category term="Container Orchestration" scheme="https://wgtech.github.io/tags/Container-Orchestration/"/>
+    
+      <category term="Server" scheme="https://wgtech.github.io/tags/Server/"/>
     
   </entry>
   
@@ -421,12 +421,6 @@
     
       <category term="Kubernetes" scheme="https://wgtech.github.io/tags/Kubernetes/"/>
     
-      <category term="Container" scheme="https://wgtech.github.io/tags/Container/"/>
-    
-      <category term="Container Orchestration" scheme="https://wgtech.github.io/tags/Container-Orchestration/"/>
-    
-      <category term="Server" scheme="https://wgtech.github.io/tags/Server/"/>
-    
       <category term="Desired State" scheme="https://wgtech.github.io/tags/Desired-State/"/>
     
       <category term="ReplicaSet" scheme="https://wgtech.github.io/tags/ReplicaSet/"/>
@@ -436,6 +430,12 @@
       <category term="Volume" scheme="https://wgtech.github.io/tags/Volume/"/>
     
       <category term="Services" scheme="https://wgtech.github.io/tags/Services/"/>
+    
+      <category term="Container" scheme="https://wgtech.github.io/tags/Container/"/>
+    
+      <category term="Container Orchestration" scheme="https://wgtech.github.io/tags/Container-Orchestration/"/>
+    
+      <category term="Server" scheme="https://wgtech.github.io/tags/Server/"/>
     
   </entry>
   
@@ -1467,9 +1467,9 @@
     
       <category term="Python 3" scheme="https://wgtech.github.io/tags/Python-3/"/>
     
-      <category term="Virtualenv" scheme="https://wgtech.github.io/tags/Virtualenv/"/>
-    
       <category term="Anaconda" scheme="https://wgtech.github.io/tags/Anaconda/"/>
+    
+      <category term="Virtualenv" scheme="https://wgtech.github.io/tags/Virtualenv/"/>
     
   </entry>
   

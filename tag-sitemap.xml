@@ -220,6 +220,27 @@
     </url>
 
     <url>
+        <loc>https://wgtech.github.io/tags/Server/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Container-Orchestration/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Container/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://wgtech.github.io/tags/Services/</loc>
         <lastmod>2019-10-28T13:52:48.696Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -249,27 +270,6 @@
 
     <url>
         <loc>https://wgtech.github.io/tags/Desired-State/</loc>
-        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Server/</loc>
-        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Container-Orchestration/</loc>
-        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Container/</loc>
         <lastmod>2019-10-28T13:52:48.696Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -332,6 +332,20 @@
     </url>
 
     <url>
+        <loc>https://wgtech.github.io/tags/Python-2/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Virtualenv/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://wgtech.github.io/tags/Keyword/</loc>
         <lastmod>2019-10-28T13:52:48.692Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -353,21 +367,7 @@
     </url>
 
     <url>
-        <loc>https://wgtech.github.io/tags/Python-2/</loc>
-        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://wgtech.github.io/tags/Anaconda/</loc>
-        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Virtualenv/</loc>
         <lastmod>2019-10-28T13:52:48.692Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
