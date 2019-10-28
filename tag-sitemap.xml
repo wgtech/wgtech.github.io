@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    <url>
+        <loc>https://wgtech.github.io/tags/git-pull/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/fatal/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Git/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Revision-Control/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Version-Control/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Source-Control/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Source-Code-Management/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Programming/</loc>
+        <lastmod>2019-10-28T13:52:48.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/%EB%A7%88%EB%A3%A8180/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Seoul/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Blogging/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/libappstream3/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/appstreamcli/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/apt-get/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Notes/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/xenial/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Ubuntu/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Linux/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Seminar/</loc>
+        <lastmod>2019-10-28T13:52:48.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Statement/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Expression/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Token/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Grammar/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Swift/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Language/</loc>
+        <lastmod>2019-10-28T13:52:48.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Refer-to-the-book/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Library/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Django-3/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Django/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Python/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Framework/</loc>
+        <lastmod>2019-10-28T13:52:48.697Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Services/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Volume/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Pods/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/ReplicaSet/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Desired-State/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Server/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Container-Orchestration/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Container/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Kubernetes/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Docker/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/DevOps/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/T-Academy/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Django-2/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Cloud/</loc>
+        <lastmod>2019-10-28T13:52:48.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/docker-compose/</loc>
+        <lastmod>2019-10-28T13:52:48.695Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Special-Character/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Keyword/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Identifier/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Literal/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Python-2/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Anaconda/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Virtualenv/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Python-3/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/macOS/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Mac/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/pip/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Tensorflow/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Artifical-Intelligence/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Machine-Learning/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/OpenJDK/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Java/</loc>
+        <lastmod>2019-10-28T13:52:48.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Flutter/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Dart/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Web/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/iOS/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Material-Design/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Design/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Google-I-O/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Google/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Android/</loc>
+        <lastmod>2019-10-28T13:52:48.690Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Run/</loc>
+        <lastmod>2019-10-28T13:52:48.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Link/</loc>
+        <lastmod>2019-10-28T13:52:48.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Compile/</loc>
+        <lastmod>2019-10-28T13:52:48.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Process/</loc>
+        <lastmod>2019-10-28T13:52:48.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/update-alternatives/</loc>
+        <lastmod>2019-10-28T13:52:48.687Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/centOS/</loc>
+        <lastmod>2019-10-28T13:52:48.687Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/XML/</loc>
+        <lastmod>2019-10-28T13:52:48.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/PNG/</loc>
+        <lastmod>2019-10-28T13:52:48.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/drawables/</loc>
+        <lastmod>2019-10-28T13:52:48.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Kotlin/</loc>
+        <lastmod>2019-10-28T13:52:48.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Platform/</loc>
+        <lastmod>2019-10-28T13:52:48.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Android-Studio/</loc>
+        <lastmod>2019-10-28T13:52:48.685Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Data-Binding/</loc>
+        <lastmod>2019-10-28T13:52:48.685Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Fedora/</loc>
+        <lastmod>2019-10-28T13:52:48.684Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Cloud-Services/</loc>
+        <lastmod>2019-10-28T13:52:48.683Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Environment/</loc>
+        <lastmod>2019-10-28T13:52:48.683Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/AWSomeDay/</loc>
+        <lastmod>2019-10-28T13:52:48.683Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/AWS/</loc>
+        <lastmod>2019-10-28T13:52:48.683Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Amazon-Web-Services/</loc>
+        <lastmod>2019-10-28T13:52:48.683Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Architecture/</loc>
+        <lastmod>2019-10-28T13:52:48.682Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Security/</loc>
+        <lastmod>2019-10-28T13:52:48.682Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->
