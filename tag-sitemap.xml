@@ -325,13 +325,6 @@
     </url>
 
     <url>
-        <loc>https://wgtech.github.io/tags/Python-2/</loc>
-        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://wgtech.github.io/tags/Special-Character/</loc>
         <lastmod>2019-10-28T13:52:48.692Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -339,7 +332,28 @@
     </url>
 
     <url>
+        <loc>https://wgtech.github.io/tags/Python-2/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://wgtech.github.io/tags/Virtualenv/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Anaconda/</loc>
+        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://wgtech.github.io/tags/Python-3/</loc>
         <lastmod>2019-10-28T13:52:48.692Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -361,20 +375,6 @@
 
     <url>
         <loc>https://wgtech.github.io/tags/Literal/</loc>
-        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Anaconda/</loc>
-        <lastmod>2019-10-28T13:52:48.692Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://wgtech.github.io/tags/Python-3/</loc>
         <lastmod>2019-10-28T13:52:48.692Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
