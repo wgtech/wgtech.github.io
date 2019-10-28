@@ -131,14 +131,14 @@
         <tag>DevOps</tag>
         <tag>Docker</tag>
         <tag>Kubernetes</tag>
+        <tag>Container</tag>
+        <tag>Container Orchestration</tag>
+        <tag>Server</tag>
         <tag>Desired State</tag>
         <tag>ReplicaSet</tag>
         <tag>Pods</tag>
         <tag>Volume</tag>
         <tag>Services</tag>
-        <tag>Container</tag>
-        <tag>Container Orchestration</tag>
-        <tag>Server</tag>
       </tags>
   </entry>
   <entry>
@@ -183,14 +183,14 @@
         <tag>DevOps</tag>
         <tag>Docker</tag>
         <tag>Kubernetes</tag>
+        <tag>Container</tag>
+        <tag>Container Orchestration</tag>
+        <tag>Server</tag>
         <tag>Desired State</tag>
         <tag>ReplicaSet</tag>
         <tag>Pods</tag>
         <tag>Volume</tag>
         <tag>Services</tag>
-        <tag>Container</tag>
-        <tag>Container Orchestration</tag>
-        <tag>Server</tag>
       </tags>
   </entry>
   <entry>

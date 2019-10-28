@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Tensorflow 나도 해보자저는 몇년전부터 주변에서 다들 텐서플로우 텐서플로우..하길래 궁금했고, Google I/O 세미나를 통해 접했습니다.제대로 접해보는 기회가 딱히 없었고, 그 땐 머신 러닝이나 딥러닝에 크게 관심은 없었습니다.그러다가, 최근에 장기간 교육을 받았는데 그 교육을 통해서 Tensorflow 에 대해 제대로 접해보기도 했었습니다.그리">
+<meta name="keywords" content="Framework,Python,Machine Learning,Artifical Intelligence,Tensorflow,Python 3,Anaconda,pip,Mac,macOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS로 CPU용 Tensorflow 직접 빌드해보기">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/05/29/Lets-Build-Tensorflow-CPU-With-Your-Mac/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="Tensorflow 나도 해보자저는 몇년전부터 주변에서 다들 텐서플로우 텐서플로우..하길래 궁금했고, Google I/O 세미나를 통해 접했습니다.제대로 접해보는 기회가 딱히 없었고, 그 땐 머신 러닝이나 딥러닝에 크게 관심은 없었습니다.그러다가, 최근에 장기간 교육을 받았는데 그 교육을 통해서 Tensorflow 에 대해 제대로 접해보기도 했었습니다.그리">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="macOS로 CPU용 Tensorflow 직접 빌드해보기">
+<meta name="twitter:description" content="Tensorflow 나도 해보자저는 몇년전부터 주변에서 다들 텐서플로우 텐서플로우..하길래 궁금했고, Google I/O 세미나를 통해 접했습니다.제대로 접해보는 기회가 딱히 없었고, 그 땐 머신 러닝이나 딥러닝에 크게 관심은 없었습니다.그러다가, 최근에 장기간 교육을 받았는데 그 교육을 통해서 Tensorflow 에 대해 제대로 접해보기도 했었습니다.그리">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/05/29/Lets-Build-Tensorflow-CPU-With-Your-Mac/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>macOS로 CPU용 Tensorflow 직접 빌드해보기 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/05/29/Lets-Build-Tensorflow-CPU-With-Your-Mac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          macOS로 CPU용 Tensorflow 직접 빌드해보기
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-29 16:04:00" itemprop="dateCreated datePublished" datetime="2019-05-29T16:04:00+09:00">2019-05-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Framework/" itemprop="url" rel="index">
+                    <span itemprop="name">Framework</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Framework/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Tensorflow-나도-해보자"><a href="#Tensorflow-나도-해보자" class="headerlink" title="Tensorflow 나도 해보자"></a>Tensorflow 나도 해보자</h1><p>저는 몇년전부터 주변에서 다들 텐서플로우 텐서플로우..하길래 궁금했고, <a href="/2018/07/07/Google-IO-Extended-Incheon-2018-Whats-New-In-Tensorflow">Google I/O 세미나</a>를 통해 접했습니다.<br>제대로 접해보는 기회가 딱히 없었고, 그 땐 머신 러닝이나 딥러닝에 크게 관심은 없었습니다.<br>그러다가, 최근에 장기간 교육을 받았는데 그 교육을 통해서 Tensorflow 에 대해 제대로 접해보기도 했었습니다.<br>그리고 그 교육을 통해서 <a href="https://pentacore.gitbook.io/notebook" rel="external nofollow noopener noreferrer" target="_blank">Notebook</a> 프로젝트도 완성했구요.</p>
+<h1 id="‘CPU’로-Tensorflow-돌리고-싶어요"><a href="#‘CPU’로-Tensorflow-돌리고-싶어요" class="headerlink" title="‘CPU’로 Tensorflow 돌리고 싶어요"></a>‘CPU’로 Tensorflow 돌리고 싶어요</h1><p><a href="https://www.facebook.com/TRobotics/posts/1275081972595915/" rel="external nofollow noopener noreferrer" target="_blank">머신러닝 라이브러리 돌릴 땐 GPU가 최고</a>라고 하네요.<br>왜냐하면, <a href="https://buttercoconut.xyz/157/" rel="external nofollow noopener noreferrer" target="_blank">CPU보다 GPU가 코어 수가 많아, 많은 연산을 병렬로 동시에 할 수 있기 때문이죠.</a><br>즉, 연산을 생각할 때 가성비(?)가 CPU 보다 크기 때문입니다.</p>
+<p><strong><em>그러나</em></strong></p>
+<p>저는 Macbook Pro 씁니다. 심지어 2015년 하반기 버전이죠..<br>이 맥북은 ThunderBolt 2 방식만 지원되서, 심지어 외장 그래픽카드 성능을 100% 다 뽑을 수도 없습니다.</p>
+<p><strong><em>그래서</em></strong></p>
+<blockquote>
+<p><strong>‘Mac의 CPU’로 Tensorflow 돌릴겁니다..</strong></p>
+</blockquote>
+<br>
+
+<h2 id="그런데-너무-느린데요"><a href="#그런데-너무-느린데요" class="headerlink" title="그런데 너무 느린데요"></a>그런데 너무 느린데요</h2><p>일단 CPU보다 GPU가 훨씬 빠른 건 사실입니다… :(</p>
+<h2 id="GPU가-없어요-GPU-비싸요"><a href="#GPU가-없어요-GPU-비싸요" class="headerlink" title="GPU가 없어요. GPU 비싸요."></a>GPU가 없어요. GPU 비싸요.</h2><p>모델 학습을 시키는데,</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA</span><br></pre></td></tr></table></figure>
+
+<p>위와 같은 메시지가 뜨더군요.</p>
+<p>이 메시지는 현재 <strong>설치된 Tensorflow 패키지는, CPU의 연산을 다 사용하여 더 좋은 연산 아키텍쳐에 대응하도록 빌드되지 않았다</strong>는 것입니다.</p>
+<p>그러니까 <a href="https://pypi.org/project/tensorflow/" rel="external nofollow noopener noreferrer" target="_blank">pip</a>로 설치하면, 호환성 또는 범용성이라는 명목하에 <strong>CPU 성능을 제대로 뽑아주지 못한다</strong>는 거죠.</p>
+<h1 id="사용하는-CPU에-최적화된-Tensorflow-패키지를-빌드하기"><a href="#사용하는-CPU에-최적화된-Tensorflow-패키지를-빌드하기" class="headerlink" title="사용하는 CPU에 최적화된 Tensorflow 패키지를 빌드하기"></a>사용하는 CPU에 최적화된 Tensorflow 패키지를 빌드하기</h1><p>자 이제, Mac CPU 성능을 끌어올려, 기존 Tensorflow CPU 모드보다 더 빠른 성능을 얻도록 해봅시다.</p>
+<h2 id="다운로드"><a href="#다운로드" class="headerlink" title="다운로드"></a>다운로드</h2><h3 id="brew를-설치해주세요"><a href="#brew를-설치해주세요" class="headerlink" title="brew를 설치해주세요."></a>brew를 설치해주세요.</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span><br></pre></td></tr></table></figure>
+
+<h3 id="bazel를-설치해주세요"><a href="#bazel를-설치해주세요" class="headerlink" title="bazel를 설치해주세요."></a>bazel를 설치해주세요.</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install bazel</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tensorflow-git-repo를-받으세요"><a href="#Tensorflow-git-repo를-받으세요" class="headerlink" title="Tensorflow git repo를 받으세요."></a>Tensorflow git repo를 받으세요.</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/tensorflow/tensorflow.git</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><h3 id="configure-명령어를-입력해주세요"><a href="#configure-명령어를-입력해주세요" class="headerlink" title="./configure 명령어를 입력해주세요"></a>./configure 명령어를 입력해주세요</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd tensorflow</span><br><span class="line">./configure</span><br></pre></td></tr></table></figure>
+
+<h3 id="새로-빌드할-pip-패키지-옵션-선택하기"><a href="#새로-빌드할-pip-패키지-옵션-선택하기" class="headerlink" title="새로 빌드할 pip 패키지 옵션 선택하기"></a>새로 빌드할 pip 패키지 옵션 선택하기</h3><blockquote>
+<p><strong>필요한 설정에 따라 Y 체크하시거나, 계속 엔터키를 누르면 됩니다.</strong></p>
+</blockquote>
+<p><strong>1) 설치 시작 메시지</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server using the command "bazel shutdown".</span><br><span class="line">You have bazel 0.23.2-homebrew installed.</span><br></pre></td></tr></table></figure>
+
+<p><strong>2) bazel로 패키지를 만들기 위한 옵션 지정하기</strong></p>
+<blockquote>
+<p>설치된 Python 가상환경이 기본 PATH로 지정되어 있다면 아래와 비슷한 메시지가 나옵니다.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Please specify the location of python. [Default is /Users/wgtech/anaconda3/envs/mlvenv/bin/python]:</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>설치된 Python library 경로를 묻습니다. 이상 없으면 엔터키를 눌러주세요</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Found possible Python library paths:</span><br><span class="line">/Users/wgtech/anaconda3/envs/mlvenv/lib/python3.6/site-packages</span><br><span class="line">Please input the desired Python library path to use. Default is [/Users/wgtech/anaconda3/envs/mlvenv/lib/python3.6/site-packages]</span><br></pre></td></tr></table></figure>
+
+<p><strong>3) pip 패키지로 빌드하기 위한, 알맞는 옵션을 선택합니다.</strong></p>
+<blockquote>
+<p>XLA JIT 옵션 선택입니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to build TensorFlow with XLA JIT support? [y/N]:</span><br><span class="line">No XLA JIT support will be enabled for TensorFlow.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>OpenCL SYCL 옵션 선택입니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to build TensorFlow with OpenCL SYCL support? [y/N]:</span><br><span class="line">No OpenCL SYCL support will be enabled for TensorFlow.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ROCm 옵션 선택입니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to build TensorFlow with ROCm support? [y/N]:</span><br><span class="line">No ROCm support will be enabled for TensorFlow.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>CUDA 옵션 선택입니다. (CPU로 개발할 것이기 때문에 N/또는 엔터키를 입력하여 넘겼습니다.)</strong></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to build TensorFlow with CUDA support? [y/N]:</span><br><span class="line">No CUDA support will be enabled for TensorFlow.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>새로운 버전의 clang을 설치할 지 묻습니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to download a fresh release of clang? (Experimental) [y/N]:</span><br><span class="line">Clang will not be downloaded.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>MPI 옵션 선택입니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Do you wish to build TensorFlow with MPI support? [y/N]:</span><br><span class="line">No MPI support will be enabled for TensorFlow.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>추후 bazel 명령어를 통해 입력할 config 파라미터를 정할 수 있습니다. (제 경우는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native -Wno-sign-compare]:</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Android용 Tensorflow 애플리케이션을 만들지 묻습니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]:</span><br><span class="line">Not configuring the WORKSPACE for Android builds.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>iOS, macOS, tvOS용 Tensorflow 애플리케이션을 만들지 묻습니다. (제 경우는 N/또는 엔터키를 입력하여 넘겼습니다.)</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Would you like to configure Bazel rules for building on Apple platforms? [y/N]:</span><br><span class="line">Not configuring Bazel rules for Apple platforms.</span><br></pre></td></tr></table></figure>
+
+<h3 id="bazel로-패키지를-빌드하기"><a href="#bazel로-패키지를-빌드하기" class="headerlink" title="bazel로 패키지를 빌드하기"></a>bazel로 패키지를 빌드하기</h3><blockquote>
+<p>선택 1 : <strong>CPU 자원을 제대로 활용하여 Tensorflow 사용하고 싶다면…</strong></p>
+</blockquote>
+<p><strong><em>저는 아래와 같은 명령어를 입력하여 패키지 빌드했습니다</em></strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-msse4.2 //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>선택 2 : pip에 배포된 패키지와 동일하게 진행할 것이라면…<br>bazel build –config=opt //tensorflow/tools/pip_package:build_pip_package</p>
+</blockquote>
+<blockquote>
+<p>선택 3 : <strong>GPU로 Tensorflow를 사용하고 싶다면…</strong><br>(위에 반드시 CUDA 옵션 선택 메시지에서 Y를 눌러야합니다. 그리고 아래와 같은 명령어를 입력하세요.)<br>bazel build <strong>–config=opt –config=cuda</strong> //tensorflow/tools/pip_package:build_pip_package</p>
+</blockquote>
+<br>
+
+<p><strong>위 선택지 중 하나를 택해 build 과정을 거치고 나서 아래 명령어를 입력해주세요.</strong><br>(wheel 파일 이름을 입력하라고 나올겁니다)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br></pre></td></tr></table></figure>
+
+<h3 id="bazel로-패키지-빌드시-유의할-점"><a href="#bazel로-패키지-빌드시-유의할-점" class="headerlink" title="bazel로 패키지 빌드시 유의할 점"></a>bazel로 패키지 빌드시 유의할 점</h3><ul>
+<li>–copt부분은 cpu가 지원되는 것에 따라 약간씩 다를 수 있습니다.</li>
+<li>위에서도 언급했지만, Nvidia GPU의 CUDA 연산을 활용하려면 <strong>–config=cuda</strong> 추가해주세요.</li>
+</ul>
+<h3 id="bazel로-pip-패키지를-빌드했다면…"><a href="#bazel로-pip-패키지를-빌드했다면…" class="headerlink" title="bazel로 pip 패키지를 빌드했다면…"></a>bazel로 pip 패키지를 빌드했다면…</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 예시1</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-버전태그.whl</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 예시2</span><br><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-1.1.0-cp36-cp36m-macosx_10_6_intel.whl</span><br></pre></td></tr></table></figure>
+
+<h3 id="잘못-빌드했다면"><a href="#잘못-빌드했다면" class="headerlink" title="잘못 빌드했다면!!"></a>잘못 빌드했다면!!</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew clean --expunge</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h1><h2 id="bazel-빌드-시간"><a href="#bazel-빌드-시간" class="headerlink" title="bazel 빌드 시간"></a>bazel 빌드 시간</h2><p>위와 같은 어려움(?)을 극복하여 빌드를 시도했습니다.<br>저 같은 경우는 <strong>약 3시간 19분</strong>정도 걸리더라구요..</p>
+<h2 id="기존보다-얼마나-빨라졌을까요"><a href="#기존보다-얼마나-빨라졌을까요" class="headerlink" title="기존보다 얼마나 빨라졌을까요?"></a>기존보다 얼마나 빨라졌을까요?</h2><p>정말! 놀랍게도 엄청 빨라졌습니다.<br>프로젝트와 관련된 사항이기도 하고 시도하는 코드에 따라 정확하게 말하기는 어렵습니다만,<br>제가 시도해보니 무려 <strong>6배</strong>가 빨라졌습니다. (1 epoch당 6시간 30분 소요 -&gt; 1시간 30분 소요)<br>음~ 시도해볼만합니다!</p>
+<h2 id="그러나…"><a href="#그러나…" class="headerlink" title="그러나…"></a>그러나…</h2><p>역시 GPU가 좋습니다..<br>맥북 고유의 비행기 이륙소리가 많이 들리고 발열도 장난아닙니다.<br><em>어떤 걸 시도하느냐에 따라 맥북이 죽어버리는 경우도 발생합니다..</em> ^.^;;;</p>
+<br>
+
+<h1 id="아하"><a href="#아하" class="headerlink" title="아하!"></a>아하!</h1><h2 id="CPU로도-머신러닝이-가능합니다"><a href="#CPU로도-머신러닝이-가능합니다" class="headerlink" title="CPU로도 머신러닝이 가능합니다"></a>CPU로도 머신러닝이 가능합니다</h2><p>그러나, 계속 사용하면 후회할겁니다.. 수명이 줄어들거에요..<br>GPU 사세요..</p>
+<h2 id="효율적인-머신러닝이-가능합니다"><a href="#효율적인-머신러닝이-가능합니다" class="headerlink" title="효율적인 머신러닝이 가능합니다"></a>효율적인 머신러닝이 가능합니다</h2><p>옵션중에는 Android, iOS 환경에서도 사용할 지 묻는 옵션이 있었습니다.<br>원하는 환경(컴퓨터 CPU, GPU 또는 모바일)에서 자유롭게 최대한의 퍼포먼스를 끌어올리면서 Tensorflow를 활용할 수 있다는 것입니다.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+              <a href="/tags/Artifical-Intelligence/" rel="tag"># Artifical Intelligence</a>
+              <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+              <a href="/tags/Python-3/" rel="tag"># Python 3</a>
+              <a href="/tags/Anaconda/" rel="tag"># Anaconda</a>
+              <a href="/tags/pip/" rel="tag"># pip</a>
+              <a href="/tags/Mac/" rel="tag"># Mac</a>
+              <a href="/tags/macOS/" rel="tag"># macOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/05/27/The-Way-Of-Django-Application-Development/" rel="next" title="Django Application 개발 방식 : MTV 패턴(MVT 패턴) 등">
+                  <i class="fa fa-chevron-left"></i> Django Application 개발 방식 : MTV 패턴(MVT 패턴) 등
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module1/" rel="prev" title="APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념">
+                  APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow-나도-해보자"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow 나도 해보자</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#‘CPU’로-Tensorflow-돌리고-싶어요"><span class="nav-number">2.</span> <span class="nav-text">‘CPU’로 Tensorflow 돌리고 싶어요</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#그런데-너무-느린데요"><span class="nav-number">2.1.</span> <span class="nav-text">그런데 너무 느린데요</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU가-없어요-GPU-비싸요"><span class="nav-number">2.2.</span> <span class="nav-text">GPU가 없어요. GPU 비싸요.</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#사용하는-CPU에-최적화된-Tensorflow-패키지를-빌드하기"><span class="nav-number">3.</span> <span class="nav-text">사용하는 CPU에 최적화된 Tensorflow 패키지를 빌드하기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#다운로드"><span class="nav-number">3.1.</span> <span class="nav-text">다운로드</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#brew를-설치해주세요"><span class="nav-number">3.1.1.</span> <span class="nav-text">brew를 설치해주세요.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel를-설치해주세요"><span class="nav-number">3.1.2.</span> <span class="nav-text">bazel를 설치해주세요.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow-git-repo를-받으세요"><span class="nav-number">3.1.3.</span> <span class="nav-text">Tensorflow git repo를 받으세요.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#설치"><span class="nav-number">3.2.</span> <span class="nav-text">설치</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#configure-명령어를-입력해주세요"><span class="nav-number">3.2.1.</span> <span class="nav-text">./configure 명령어를 입력해주세요</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#새로-빌드할-pip-패키지-옵션-선택하기"><span class="nav-number">3.2.2.</span> <span class="nav-text">새로 빌드할 pip 패키지 옵션 선택하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel로-패키지를-빌드하기"><span class="nav-number">3.2.3.</span> <span class="nav-text">bazel로 패키지를 빌드하기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel로-패키지-빌드시-유의할-점"><span class="nav-number">3.2.4.</span> <span class="nav-text">bazel로 패키지 빌드시 유의할 점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bazel로-pip-패키지를-빌드했다면…"><span class="nav-number">3.2.5.</span> <span class="nav-text">bazel로 pip 패키지를 빌드했다면…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#잘못-빌드했다면"><span class="nav-number">3.2.6.</span> <span class="nav-text">잘못 빌드했다면!!</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#결과"><span class="nav-number">4.</span> <span class="nav-text">결과</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bazel-빌드-시간"><span class="nav-number">4.1.</span> <span class="nav-text">bazel 빌드 시간</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#기존보다-얼마나-빨라졌을까요"><span class="nav-number">4.2.</span> <span class="nav-text">기존보다 얼마나 빨라졌을까요?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#그러나…"><span class="nav-number">4.3.</span> <span class="nav-text">그러나…</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#아하"><span class="nav-number">5.</span> <span class="nav-text">아하!</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU로도-머신러닝이-가능합니다"><span class="nav-number">5.1.</span> <span class="nav-text">CPU로도 머신러닝이 가능합니다</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#효율적인-머신러닝이-가능합니다"><span class="nav-number">5.2.</span> <span class="nav-text">효율적인 머신러닝이 가능합니다</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

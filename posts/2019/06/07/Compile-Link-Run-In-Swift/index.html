@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Swift 구조컴파일 (Compile)사람이 이해할 수 있는 문자를 사용하며 코드를 작성하고, 이 문자들을 컴퓨터 컴파일러를 통해서, 컴퓨터가 알아볼 수 있고 0과 1로 구성되어 있는 이진수 코드로 변환하는 과정을 의미합니다. codes ⇒ 0101…   링크 (Link)컴파일 과정을 통해 얻은, 이진수로 구성되어 있는 컴파일 코드를 실행 가능한 파일(바이">
+<meta name="keywords" content="Programming,Language,Swift,Process,Compile,Link,Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 프로세스 : 컴파일, 링크, 실행 (Compile, Link, Run In Swift)">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/06/07/Compile-Link-Run-In-Swift/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="Swift 구조컴파일 (Compile)사람이 이해할 수 있는 문자를 사용하며 코드를 작성하고, 이 문자들을 컴퓨터 컴파일러를 통해서, 컴퓨터가 알아볼 수 있고 0과 1로 구성되어 있는 이진수 코드로 변환하는 과정을 의미합니다. codes ⇒ 0101…   링크 (Link)컴파일 과정을 통해 얻은, 이진수로 구성되어 있는 컴파일 코드를 실행 가능한 파일(바이">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.688Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift 프로세스 : 컴파일, 링크, 실행 (Compile, Link, Run In Swift)">
+<meta name="twitter:description" content="Swift 구조컴파일 (Compile)사람이 이해할 수 있는 문자를 사용하며 코드를 작성하고, 이 문자들을 컴퓨터 컴파일러를 통해서, 컴퓨터가 알아볼 수 있고 0과 1로 구성되어 있는 이진수 코드로 변환하는 과정을 의미합니다. codes ⇒ 0101…   링크 (Link)컴파일 과정을 통해 얻은, 이진수로 구성되어 있는 컴파일 코드를 실행 가능한 파일(바이">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/06/07/Compile-Link-Run-In-Swift/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Swift 프로세스 : 컴파일, 링크, 실행 (Compile, Link, Run In Swift) | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/06/07/Compile-Link-Run-In-Swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift 프로세스 : 컴파일, 링크, 실행 (Compile, Link, Run In Swift)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-07 18:35:11" itemprop="dateCreated datePublished" datetime="2019-06-07T18:35:11+09:00">2019-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Language/" itemprop="url" rel="index">
+                    <span itemprop="name">Language</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Language/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Swift-구조"><a href="#Swift-구조" class="headerlink" title="Swift 구조"></a>Swift 구조</h1><h2 id="컴파일-Compile"><a href="#컴파일-Compile" class="headerlink" title="컴파일 (Compile)"></a>컴파일 (Compile)</h2><p>사람이 이해할 수 있는 문자를 사용하며 코드를 작성하고, 이 문자들을 컴퓨터 컴파일러를 통해서, 컴퓨터가 알아볼 수 있고 0과 1로 구성되어 있는 이진수 코드로 변환하는 과정을 의미합니다.</p>
+<p><span style="background-color:black;color:white;">codes ⇒ 0101…</span></p>
+<br>
+
+<h2 id="링크-Link"><a href="#링크-Link" class="headerlink" title="링크 (Link)"></a>링크 (Link)</h2><p>컴파일 과정을 통해 얻은, 이진수로 구성되어 있는 컴파일 코드를 실행 가능한 파일(바이너리)로 변환하기 위하여, 프레임워크와 라이브러리 등을 접목시켜 변환하는 작업을 의미합니다.</p>
+<span style="background-color:black;color:white;">
+codes ⇒ 0101... + Framework (+ Libraries ... ) ⇒ Variables, Components ...</span>
+
+<p>과거 일일히 처리하는 도구가 있어야하지만, 오늘날 IDE(Integrated Development Environments, 통합 개발 환경) 도구가 모두 처리해줍니다.</p>
+<br>
+
+<h2 id="빌드-Build"><a href="#빌드-Build" class="headerlink" title="빌드 (Build)"></a>빌드 (Build)</h2><p>Compile 과정과 Link 과정을 아우르는 과정은 ‘Build’ 라고 합니다.</p>
+<br>
+
+<h2 id="실행-Run"><a href="#실행-Run" class="headerlink" title="실행 (Run)"></a>실행 (Run)</h2><p>build 과정을 거친 이후, 개발자가 작성한 코드는 실행이 가능한 상태인 파일들로 변환됩니다. 이 때, 원하는 상태(Mode) 를 통해, 각기 다른 결과를 도출할 수도 있는데 크게 두 가지 상태로 나뉘어집니다.</p>
+<ul>
+<li>Debug Mode : 앱을 만들 때 사용하며, 사용자가 볼 수 없지만 개발자들이 확인 가능한 값들도 출력이 됩니다.</li>
+<li>Release Mode : 각 다른 실행 기기에 최적화된 상태로 변환되며, Debug Mode 와는 달리 실행 속도가 빠릅니다.</li>
+</ul>
+<br>
+
+<h2 id="시간과-시점"><a href="#시간과-시점" class="headerlink" title="시간과 시점"></a>시간과 시점</h2><h3 id="컴파일-시간-Compile-Time"><a href="#컴파일-시간-Compile-Time" class="headerlink" title="컴파일 시간 (Compile Time)"></a>컴파일 시간 (Compile Time)</h3><p>Compile와 Link 시작시간에서, 과정을 모두 마칠 때까지 걸린 시간을 의미합니다.</p>
+<h3 id="런타임-실행시점-Runtime"><a href="#런타임-실행시점-Runtime" class="headerlink" title="런타임 (실행시점, Runtime)"></a>런타임 (실행시점, Runtime)</h3><p>실행한 시점을 가리킵니다.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Programming/" rel="tag"># Programming</a>
+              <a href="/tags/Language/" rel="tag"># Language</a>
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+              <a href="/tags/Process/" rel="tag"># Process</a>
+              <a href="/tags/Compile/" rel="tag"># Compile</a>
+              <a href="/tags/Link/" rel="tag"># Link</a>
+              <a href="/tags/Run/" rel="tag"># Run</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/06/07/Literals-Identifiers-Keywords-In-Swift/" rel="next" title="Swift 문법 : (2) 리터럴, 식별자, 키워드 (Literals, Identifiers, Keywords In Swift)">
+                  <i class="fa fa-chevron-left"></i> Swift 문법 : (2) 리터럴, 식별자, 키워드 (Literals, Identifiers, Keywords In Swift)
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/06/07/Special-Characters-In-Swift/" rel="prev" title="Swift 문법 : (3) 특수문자 표시와 의미 (Special Characters In Swift)">
+                  Swift 문법 : (3) 특수문자 표시와 의미 (Special Characters In Swift) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-구조"><span class="nav-number">1.</span> <span class="nav-text">Swift 구조</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#컴파일-Compile"><span class="nav-number">1.1.</span> <span class="nav-text">컴파일 (Compile)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#링크-Link"><span class="nav-number">1.2.</span> <span class="nav-text">링크 (Link)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#빌드-Build"><span class="nav-number">1.3.</span> <span class="nav-text">빌드 (Build)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#실행-Run"><span class="nav-number">1.4.</span> <span class="nav-text">실행 (Run)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#시간과-시점"><span class="nav-number">1.5.</span> <span class="nav-text">시간과 시점</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#컴파일-시간-Compile-Time"><span class="nav-number">1.5.1.</span> <span class="nav-text">컴파일 시간 (Compile Time)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#런타임-실행시점-Runtime"><span class="nav-number">1.5.2.</span> <span class="nav-text">런타임 (실행시점, Runtime)</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

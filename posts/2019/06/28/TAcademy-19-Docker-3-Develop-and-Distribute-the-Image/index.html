@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김대권 (Docker Meetup Seoul 운영자) 님   구성요소Base Image 초기rootfs +">
+<meta name="keywords" content="Seminar,T Academy,Notes,DevOps,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="T아카데미 토크ON세미나 19차 &#39;컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해&#39; : 3강 이미지 만들고 배포하기">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-3-Develop-and-Distribute-the-Image/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김대권 (Docker Meetup Seoul 운영자) 님   구성요소Base Image 초기rootfs +">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="T아카데미 토크ON세미나 19차 &#39;컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해&#39; : 3강 이미지 만들고 배포하기">
+<meta name="twitter:description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김대권 (Docker Meetup Seoul 운영자) 님   구성요소Base Image 초기rootfs +">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-3-Develop-and-Distribute-the-Image/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 3강 이미지 만들고 배포하기 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-3-Develop-and-Distribute-the-Image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 3강 이미지 만들고 배포하기
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-28 19:40:00" itemprop="dateCreated datePublished" datetime="2019-06-28T19:40:00+09:00">2019-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/" itemprop="url" rel="index">
+                    <span itemprop="name">Seminar</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/" itemprop="url" rel="index">
+                    <span itemprop="name">T Academy</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/DevOps/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.<br>세미나 강의는 <a href="https://tacademy.skplanet.com/live/player/onlineLectureDetail.action?seq=125#sec2" rel="external nofollow noopener noreferrer" target="_blank"><strong>이 곳</strong></a>을 눌러 시청하실 수 있습니다.</p>
+</blockquote>
+<blockquote>
+<p>노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.</p>
+</blockquote>
+<p>* 발표자 : 김대권 (Docker Meetup Seoul 운영자) 님</p>
+<br>
+
+<h1 id="구성요소"><a href="#구성요소" class="headerlink" title="구성요소"></a>구성요소</h1><h2 id="Base-Image"><a href="#Base-Image" class="headerlink" title="Base Image"></a>Base Image</h2><ul>
+<li><p>초기<br>rootfs + Base Image 로 구성.</p>
+</li>
+<li><p>Run 실행 후<br>rootfs + Base Image + Install xxx (Container에 구성요소 추가)</p>
+</li>
+</ul>
+<h2 id="Custom-Image"><a href="#Custom-Image" class="headerlink" title="Custom Image"></a>Custom Image</h2><ul>
+<li>Base Image + Container 구성요소 + Commit<br>rootfs + Base Image + xxx</li>
+</ul>
+<br>
+
+<h1 id="컨테이너를-이미지로-저장하기"><a href="#컨테이너를-이미지로-저장하기" class="headerlink" title="컨테이너를 이미지로 저장하기"></a>컨테이너를 이미지로 저장하기</h1><h2 id="명령어로-이미지-생성하기"><a href="#명령어로-이미지-생성하기" class="headerlink" title="명령어로 이미지 생성하기"></a>명령어로 이미지 생성하기</h2><blockquote>
+<p>실습</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu:16.04 bash</span><br><span class="line"><span class="meta">#</span> apt-get update</span><br><span class="line"><span class="meta">#</span> apt-get install -y git</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>또 다른 터미널을 실행하여 작성</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line">docker diff &lt;CONTAINER_ID&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> git 이라는 version으로 태그한 ubuntu image가 생성된다.</span><br><span class="line">docker commit &lt;CONTAINER_ID&gt; ubuntu:git</span><br><span class="line"></span><br><span class="line">docker run -it ubuntu:git bash</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>diff와 commit 명령어</strong><br>docker diff : 이미지의 변동사항을 확인할 수 있는 명령어<br>docker commit : Base Image 에 추가 구성사항을 더하여 새로운 이미지로 생성</p>
+</blockquote>
+<br>
+
+<h2 id="Dockerfile로-이미지-만들기"><a href="#Dockerfile로-이미지-만들기" class="headerlink" title="Dockerfile로 이미지 만들기"></a>Dockerfile로 이미지 만들기</h2><blockquote>
+<p><strong>Dockerfile</strong> : 이미지 생성 과정을 기술한 Docker 전용 DSL</p>
+</blockquote>
+<p>Dockerfile을 원하는 디렉토리에 만들어보자.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch Dockerfile</span><br><span class="line">vi Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p>ubuntu 16.04 Base Image에 git을 설치하자</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">FROM</span> <span class="attr">ubuntu:16.04</span></span><br><span class="line"><span class="string">RUN</span> <span class="string">apt-get</span> <span class="string">update</span></span><br><span class="line"><span class="string">RUN</span> <span class="string">apt-get</span> <span class="string">install</span> <span class="bullet">-y</span> <span class="string">git</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>컨테이너는 반드시 상호작용 상태에서 작동되서는 안된다.<br>따라서 <strong>-y</strong> 옵션을 줘야 상호작용을 요구하지 않으며, 정상적으로 실행이 된다.</p>
+</blockquote>
+<p>위 방법대로 진행 후 git2 라는 버전이름을 갖춘 이미지를 생성해보자.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat Dockerfile</span><br><span class="line">docker build -t ubuntu:git2 .</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="Dockerfile-작성시-알아야할-명령어"><a href="#Dockerfile-작성시-알아야할-명령어" class="headerlink" title="Dockerfile 작성시 알아야할 명령어"></a>Dockerfile 작성시 알아야할 명령어</h2><h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><blockquote>
+<p>Base Image 지정을 의미한다.<br>FROM &lt;Base Image 이름&gt;</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:git</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><blockquote>
+<p>파일 추가<br>ADD &lt;추가할 파일&gt; &lt;파일이 추가될 경로&gt;</p>
+</blockquote>
+<p><strong>현재</strong> Directory에  있는 내용들이 Dockerfile로 추가할 수 있다.</p>
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><blockquote>
+<p>원하는 명령어 실행<br>RUN &lt;명령어&gt;</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get install -y git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>단, Interactive 내용이 있을 경우 Build가 되지 않는다.</li>
+</ul>
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><blockquote>
+<p>작업 디렉터리 변경 (cd 명령어와 유사)</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WORKDIR</span> /tmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><blockquote>
+<p>환경변수 기본값 지정<br>ENV AWESOME_VAR FOOVAR</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> JAVA_HOME=/opt/jdk/current</span><br></pre></td></tr></table></figure>
+
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><blockquote>
+<p>컨테이너로 실행시 노출시킬 포트를 선언한다<br>EXPOSE &lt;포트 번호&gt;</p>
+</blockquote>
+<p>Docker 가 자동으로 내부 포트를 개방시킨다.</p>
+<ul>
+<li>단, -p  옵션을 사용하여 반드시 외부에서도 접근을 허용토록 설정해야한다.</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span> <span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><blockquote>
+<p>이미지의 기본 실행 명령어 지정</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span> /bin/bash</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h1 id="Docker-Hub"><a href="#Docker-Hub" class="headerlink" title="Docker Hub"></a>Docker Hub</h1><ul>
+<li>Docker Hub는 Docker에서 공식으로 제공하는 Docker Registry 사이트이다.<blockquote>
+<p><strong><a href="https://hub.docker.com" rel="external nofollow noopener noreferrer" target="_blank">https://hub.docker.com</a></strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="docker-tag"><a href="#docker-tag" class="headerlink" title="docker tag"></a>docker tag</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag wgtech/docker_tutorial:latest wgtech/docker_rename:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker_tutorial:latest 태그의 이미지 손실 없이, docker_rename:latest 태그의 이미지가 추가된다.</li>
+</ul>
+<h3 id="docker-login"><a href="#docker-login" class="headerlink" title="docker login"></a>docker login</h3><blockquote>
+<p>터미널 시스템과 Docker Registry 동기화</p>
+</blockquote>
+<h3 id="docker-push"><a href="#docker-push" class="headerlink" title="docker push"></a>docker push</h3><blockquote>
+<p>생성된 이미지를 Docker Registry로 업로드.</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push wgtech/docker_tutorial:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a>docker rmi</h3><blockquote>
+<p>Local에서 생성된 이미지를 제거</p>
+</blockquote>
+<h3 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h3><blockquote>
+<p>Docker Registry에 업로드 되어 있는 이미지를 내려받는 명령어</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull wgtech/ubuntu:latest</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Seminar/" rel="tag"># Seminar</a>
+              <a href="/tags/T-Academy/" rel="tag"># T Academy</a>
+              <a href="/tags/Notes/" rel="tag"># Notes</a>
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/06/28/TAcademy-19-Docker-2-How-To-Make-Container/" rel="next" title="T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 2강 도커 컨테이너 만들기">
+                  <i class="fa fa-chevron-left"></i> T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 2강 도커 컨테이너 만들기
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/" rel="prev" title="T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 4강 도커 이미지 빌드 환경 만들기">
+                  T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 4강 도커 이미지 빌드 환경 만들기 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#구성요소"><span class="nav-number">1.</span> <span class="nav-text">구성요소</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Base-Image"><span class="nav-number">1.1.</span> <span class="nav-text">Base Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-Image"><span class="nav-number">1.2.</span> <span class="nav-text">Custom Image</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#컨테이너를-이미지로-저장하기"><span class="nav-number">2.</span> <span class="nav-text">컨테이너를 이미지로 저장하기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#명령어로-이미지-생성하기"><span class="nav-number">2.1.</span> <span class="nav-text">명령어로 이미지 생성하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile로-이미지-만들기"><span class="nav-number">2.2.</span> <span class="nav-text">Dockerfile로 이미지 만들기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile-작성시-알아야할-명령어"><span class="nav-number">2.3.</span> <span class="nav-text">Dockerfile 작성시 알아야할 명령어</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FROM"><span class="nav-number">2.3.1.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADD"><span class="nav-number">2.3.2.</span> <span class="nav-text">ADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RUN"><span class="nav-number">2.3.3.</span> <span class="nav-text">RUN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WORKDIR"><span class="nav-number">2.3.4.</span> <span class="nav-text">WORKDIR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENV"><span class="nav-number">2.3.5.</span> <span class="nav-text">ENV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXPOSE"><span class="nav-number">2.3.6.</span> <span class="nav-text">EXPOSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD"><span class="nav-number">2.3.7.</span> <span class="nav-text">CMD</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Hub"><span class="nav-number">3.</span> <span class="nav-text">Docker Hub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-tag"><span class="nav-number">3.0.1.</span> <span class="nav-text">docker tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-login"><span class="nav-number">3.0.2.</span> <span class="nav-text">docker login</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-push"><span class="nav-number">3.0.3.</span> <span class="nav-text">docker push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-rmi"><span class="nav-number">3.0.4.</span> <span class="nav-text">docker rmi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-pull"><span class="nav-number">3.0.5.</span> <span class="nav-text">docker pull</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

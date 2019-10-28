@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김충섭 (퍼플웍스) 님   지속적 통합 및 전달 (CI/CD)란?CI Continous Integratio">
+<meta name="keywords" content="Seminar,T Academy,Notes,DevOps,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="T아카데미 토크ON세미나 19차 &#39;컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해&#39; : 4강 도커 이미지 빌드 환경 만들기">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김충섭 (퍼플웍스) 님   지속적 통합 및 전달 (CI/CD)란?CI Continous Integratio">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://wgtech.github.io/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/full-ci-cd-pipeline.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/best-of-ci-tools.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/jenkins.png">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="T아카데미 토크ON세미나 19차 &#39;컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해&#39; : 4강 도커 이미지 빌드 환경 만들기">
+<meta name="twitter:description" content="이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.세미나 강의는 이 곳을 눌러 시청하실 수 있습니다.   노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.  * 발표자 : 김충섭 (퍼플웍스) 님   지속적 통합 및 전달 (CI/CD)란?CI Continous Integratio">
+<meta name="twitter:image" content="https://wgtech.github.io/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/full-ci-cd-pipeline.png">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 4강 도커 이미지 빌드 환경 만들기 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 4강 도커 이미지 빌드 환경 만들기
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-28 20:15:00" itemprop="dateCreated datePublished" datetime="2019-06-28T20:15:00+09:00">2019-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/" itemprop="url" rel="index">
+                    <span itemprop="name">Seminar</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/" itemprop="url" rel="index">
+                    <span itemprop="name">T Academy</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/T-Academy/DevOps/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>이 포스트는 2018년 1월 17일 수요일에 진행됐던 세미나 강의 영상을 시청하고 작성했습니다.<br>세미나 강의는 <a href="https://tacademy.skplanet.com/live/player/onlineLectureDetail.action?seq=125#sec2" rel="external nofollow noopener noreferrer" target="_blank"><strong>이 곳</strong></a>을 눌러 시청하실 수 있습니다.</p>
+</blockquote>
+<blockquote>
+<p>노트 필기식으로 작성한 내용이기에, 존댓말을 사용하지 않은 점 참고하시기 바랍니다.</p>
+</blockquote>
+<p>* 발표자 : 김충섭 (퍼플웍스) 님</p>
+<br>
+
+<h1 id="지속적-통합-및-전달-CI-CD-란"><a href="#지속적-통합-및-전달-CI-CD-란" class="headerlink" title="지속적 통합 및 전달 (CI/CD)란?"></a>지속적 통합 및 전달 (CI/CD)란?</h1><h2 id="CI"><a href="#CI" class="headerlink" title="CI"></a>CI</h2><blockquote>
+<p><strong>Continous Integration, 지속적 통합</strong></p>
+</blockquote>
+<p>빠르고 효과적으로 제품을 출시하기 위해 지속적으로 소스를 통합하고 빌드하고 테스트하고 배포하는 과정이 필요하다.</p>
+<p>CI는 보통 테스트/빌드까지의 과정을 이야기하고…</p>
+<h2 id="CD"><a href="#CD" class="headerlink" title="CD"></a>CD</h2><blockquote>
+<p><strong>Continuous Delivery, 지속적 배포</strong></p>
+</blockquote>
+<p>CD는 여기에 추가로 전달/배포까지 지칭한다.</p>
+<p>Microsoft Azure DevOps 시스템을 참고하자면</p>
+<p><img src="/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/full-ci-cd-pipeline.png" alt="&quot;CI/CD 파이프라인&quot;"></p>
+<p>위 사진에서, <a href="https://docs.microsoft.com/ko-kr/azure/container-service/dcos-swarm/container-service-docker-swarm-setup-ci-cd" rel="external nofollow noopener noreferrer" target="_blank">일반적인 CI/CD 사용 패턴</a>을 알 수 있는데 CI는 2, 3, 5에 해당되는 부분이고, 그리고 나머지 부분은 CD에 해당되는 부분이다.<br>따라서 CI와 CD는 연동적이고 연속적이라고 부분이고 전체적인 하나의 과정으로 진행한다고 보면 되겠다.</p>
+<br>
+
+<h1 id="Continuous-Integration-Tools"><a href="#Continuous-Integration-Tools" class="headerlink" title="Continuous Integration Tools"></a>Continuous Integration Tools</h1><p>개발자들과 기업체에서 주로 사용하는 툴과 언어들을 랭크로 확인할 수 있는, stackshare 에서 <a href="https://stackshare.io/continuous-integration" rel="external nofollow noopener noreferrer" target="_blank">‘What are the best Continuous Integration Tools?’</a> 이라는 기사를 작성했었는데,</p>
+<p><img src="/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/best-of-ci-tools.png" alt></p>
+<p>그 기사에 의하면 Jenkins, Travis CI, Circle CI 등이 주로 사용한다고 말한다.</p>
+<p>이번 실습에서는 Jenkins 에 대해서 다루도록 하겠다.</p>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><h3 id="소개"><a href="#소개" class="headerlink" title="소개"></a>소개</h3><ul>
+<li>빌드, 테스트, 코드 분석, 배포, 알람 등 다양한 기능 제공</li>
+<li>Master / Agent 구성 (하나의 Master에 수십, 수백개의 Agent 사용 가능)</li>
+<li>1400여개가 넘는 플러그인, Pretty But Old UI</li>
+<li>무료</li>
+</ul>
+<h3 id="실습"><a href="#실습" class="headerlink" title="실습"></a>실습</h3><blockquote>
+<p><strong>노트에 기록하는 것보다 실습을 진행했고, 직관적이기 때문에 별도로 기록한 부분은 없었습니다.</strong><br><strong>따라서 위에 기재된 링크를 따라 들어가셔서 실습 자료를 내려받아 진행하시면 되겠습니다.</strong></p>
+</blockquote>
+<p><img src="/images/2019/06/28/TAcademy-19-Docker-4-Image-Developing-Environment/jenkins.png" alt="&quot;Jenkins 실습&quot;"></p>
+<ul>
+<li>pipeline : Stage 별로 작업 만들기</li>
+<li>Do not allow concurrent builds 체크 : 한 빌드를 진행중이면, 연속적으로 빌드를 진행하지 않도록 한다.</li>
+<li>GitHub project : GitHub Project 주소를 입력하면, GitHub에 업로드된 프로젝트를 활용하며 빌드한다.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Seminar/" rel="tag"># Seminar</a>
+              <a href="/tags/T-Academy/" rel="tag"># T Academy</a>
+              <a href="/tags/Notes/" rel="tag"># Notes</a>
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/06/28/TAcademy-19-Docker-3-Develop-and-Distribute-the-Image/" rel="next" title="T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 3강 이미지 만들고 배포하기">
+                  <i class="fa fa-chevron-left"></i> T아카데미 토크ON세미나 19차 '컨테이너 기반 가상화 플랫폼 도커(Docker)의 이해' : 3강 이미지 만들고 배포하기
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/07/01/TAcademy-54-Kubernetes-1-Container/" rel="prev" title="T아카데미 토크ON세미나 54차 '쿠버네티스 살펴보기' : 1강 컨테이너">
+                  T아카데미 토크ON세미나 54차 '쿠버네티스 살펴보기' : 1강 컨테이너 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#지속적-통합-및-전달-CI-CD-란"><span class="nav-number">1.</span> <span class="nav-text">지속적 통합 및 전달 (CI/CD)란?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CI"><span class="nav-number">1.1.</span> <span class="nav-text">CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CD"><span class="nav-number">1.2.</span> <span class="nav-text">CD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Continuous-Integration-Tools"><span class="nav-number">2.</span> <span class="nav-text">Continuous Integration Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">2.1.</span> <span class="nav-text">Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#소개"><span class="nav-number">2.1.1.</span> <span class="nav-text">소개</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#실습"><span class="nav-number">2.1.2.</span> <span class="nav-text">실습</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

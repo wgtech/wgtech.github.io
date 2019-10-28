@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="기존 ADB No Permissions 이슈를 다룬 포스트가 있어, 이 포스트로 통합 작성 및 수정을 완료했습니다.    시작현재 여러 안드로이드 디바이스들을 활용하여, 앱 테스팅을 작업하고 있습니다. 진행 환경은 Ubuntu 18.04에서 Android Studio 로 작업하고 있습니다. 그런데 아무래도 adb CLI를 다루는 것에 좀 친숙해야하니까,억">
+<meta name="keywords" content="Programming,Framework,Android,Platform,Linux,Ubuntu,Fedora">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu에서 adb no permissions 또는 ????? no permissions 뜨는 현상">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/08/11/Android-51-android.rules-no-permissions/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="기존 ADB No Permissions 이슈를 다룬 포스트가 있어, 이 포스트로 통합 작성 및 수정을 완료했습니다.    시작현재 여러 안드로이드 디바이스들을 활용하여, 앱 테스팅을 작업하고 있습니다. 진행 환경은 Ubuntu 18.04에서 Android Studio 로 작업하고 있습니다. 그런데 아무래도 adb CLI를 다루는 것에 좀 친숙해야하니까,억">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu에서 adb no permissions 또는 ????? no permissions 뜨는 현상">
+<meta name="twitter:description" content="기존 ADB No Permissions 이슈를 다룬 포스트가 있어, 이 포스트로 통합 작성 및 수정을 완료했습니다.    시작현재 여러 안드로이드 디바이스들을 활용하여, 앱 테스팅을 작업하고 있습니다. 진행 환경은 Ubuntu 18.04에서 Android Studio 로 작업하고 있습니다. 그런데 아무래도 adb CLI를 다루는 것에 좀 친숙해야하니까,억">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/08/11/Android-51-android.rules-no-permissions/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Ubuntu에서 adb no permissions 또는 ????? no permissions 뜨는 현상 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/08/11/Android-51-android.rules-no-permissions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu에서 adb no permissions 또는 ????? no permissions 뜨는 현상
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-11 11:15:53" itemprop="dateCreated datePublished" datetime="2019-08-11T11:15:53+09:00">2019-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Framework/" itemprop="url" rel="index">
+                    <span itemprop="name">Framework</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Framework/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><strong>기존 ADB No Permissions 이슈를 다룬 포스트가 있어, 이 포스트로 통합 작성 및 수정을 완료했습니다.</strong></p>
+</blockquote>
+<br>
+
+<h1 id="시작"><a href="#시작" class="headerlink" title="시작"></a>시작</h1><p>현재 여러 안드로이드 디바이스들을 활용하여, 앱 테스팅을 작업하고 있습니다.</p>
+<p>진행 환경은 Ubuntu 18.04에서 Android Studio 로 작업하고 있습니다.</p>
+<p>그런데 아무래도 <strong>adb</strong> CLI를 다루는 것에 좀 친숙해야하니까,<br>억지로라도 CLI 입력하여 작업하고 있는데..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List of devices attached</span><br><span class="line">????????????    no permissions</span><br></pre></td></tr></table></figure>
+
+<p>화면에 떠 있는 저 두 줄이 저에게 찾아온 것이죠.</p>
+<br>
+
+<h1 id="해결해봅시다"><a href="#해결해봅시다" class="headerlink" title="해결해봅시다"></a>해결해봅시다</h1><h2 id="USB-Debugging"><a href="#USB-Debugging" class="headerlink" title="USB Debugging"></a>USB Debugging</h2><p>Options &gt; About Phone &gt; Build number (또는 설정 &gt; 단말기 정보 &gt; 빌드 넘버 )를 3번 눌러서<br>Developer Options (개발자 옵션)을 활성화 시킵니다.<br>그리고 USB Debugging (USB 디버깅) 옵션을 체크합니다.</p>
+<p>아마 대부분 이 건 체크를 하셨을테고…</p>
+<br>
+
+<h2 id="USB-연결-모드-설정"><a href="#USB-연결-모드-설정" class="headerlink" title="USB 연결 모드 설정"></a>USB 연결 모드 설정</h2><p>이 부분은 많이들 까먹는 경우가 많습니다!
+일부 기기들은 USB 디버깅할 때마다 매번 설정해줘야 하기 때문입니다.<br>대부분 USB Debugging 옵션을 설정하는 거에 마치는 분들이 많은데..<br>간혹 USB 연결시 ‘Charging(충전)’ 모드로 활성화하시는 분들이 계십니다.<br><strong>adb</strong> 연결시 MTP (File Transfer) 프로토콜 연결을 활성화시킬 필요가 있습니다.<br>(PTP; Picture Transfer Protocol 도 지원하는 경우가 있으나, 보통은 MTP 옵션으로 맞추는 것이 일반적입니다.)</p>
+<blockquote>
+<ol>
+<li>설정 (Settings) 이동</li>
+<li>저장소 및 USB (Storage) 이동, 또는 개발자 옵션 (Developer Options) 이동</li>
+<li>USB 설정 선택 (USB Computer Connection) 화면 선택</li>
+<li><strong>PTP (Picture Transfer Protocol)</strong> 라디오 버튼 선택</li>
+</ol>
+</blockquote>
+<br>
+
+<h2 id="51-android-rules"><a href="#51-android-rules" class="headerlink" title="51-android.rules"></a>51-android.rules</h2><p>Ubuntu(또는 Fedora 등) Linux 환경에서 개발하기 위해선, 각 기기의 USB Configuration 항목이 설정된 <strong>udev</strong> 파일을 추가해줘야합니다. 그리고 이 udev 파일에는 반드시 고유 제조사의 ID 번호가 반드시 기록되어 있어야 합니다.</p>
+<p>이렇게 Android Debugging 용도로 추가해야 하는 파일의 이름은 <strong>51-android.rules</strong> 입니다.<br>이 파일의 경로는 <strong>/etc/udev/rules.d</strong>에 위치하여야 합니다.</p>
+<blockquote>
+<p><strong>/etc/udev/rules.d/51-android.rules</strong></p>
+</blockquote>
+<h3 id="파일-존재-유무-확인"><a href="#파일-존재-유무-확인" class="headerlink" title="파일 존재 유무 확인"></a>파일 존재 유무 확인</h3><p>이 파일이 존재한지 확인합니다. 존재하다면 아래 과정을 진행해주세요</p>
+<p>이 파일을 기록하는 포맷은 다음과 같습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUBSYSTEM==&quot;usb&quot;, ATTR&#123;idVendor&#125;==&quot;2a48&quot;, MODE=&quot;0600&quot;, OWNER=&quot;wgtech.dev&quot;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 가장 중요한 부분은 <strong>ATTR{idVendor}</strong> 입니다.</p>
+<p>Windows는 각 제조사의 USB Driver를 이용하여 각각 설치해야하고,<br>Mac은 크게 설치해야하는 부분이 없다는 것과는 다르게, Linux 환경에서는 각각의 고유 제조사 번호를 알아야합니다.</p>
+<p>아무튼 설명으로 돌아오자면</p>
+<ol>
+<li>SUBSYSTEM</li>
+</ol>
+<ul>
+<li>이는 USB로 연결할 것이라고 선언하는 문구입니다.</li>
+</ul>
+<ol start="2">
+<li><strong>ATTR{idVendor}</strong></li>
+</ol>
+<ul>
+<li><a href="http://www.linux-usb.org/usb.ids" rel="external nofollow noopener noreferrer" target="_blank">여기</a>를 참고하여 adb 연결할 기기의 제조사 ID를 입력해야합니다.</li>
+</ul>
+<ol start="3">
+<li>MODE</li>
+</ol>
+<ul>
+<li>권한을 설정합니다. (여기서 600 = u+rw = 사용자에게 읽기(r;read)와 쓰기(w;write) 권한을 부여합니다.)</li>
+</ul>
+<ol start="4">
+<li>OWNER</li>
+</ol>
+<ul>
+<li>시스템 프레임워크 개발시 Build 작성자의 이름을 정할 수 있습니다.</li>
+<li>여러 기기를 사용할 경우, 모든 줄(설정)의 OWNER 부분은 반드시 동일해야합니다. (그래야 헷갈리지 않으니까요!)</li>
+</ul>
+<br> 
+
+<h3 id="여기서-질문"><a href="#여기서-질문" class="headerlink" title="여기서 질문!"></a>여기서 질문!</h3><p>Q. 제조사 번호 (idVendor) 값을 모르겠어요..</p>
+<p>A. <strong>lsusb</strong> 명령어를 이용하면 됩니다.</p>
+<blockquote>
+<p>USB 연결 전 lsusb</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> lsusb</span><br><span class="line"></span><br><span class="line">Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br><span class="line">Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br><span class="line">Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 001 Device 020: ID 046d:c31d Logitech, Inc. Media Keyboard K200</span><br><span class="line">Bus 001 Device 022: ID 2516:0051  </span><br><span class="line">Bus 001 Device 021: ID 046d:c077 Logitech, Inc. M105 Optical Mouse</span><br><span class="line">Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>USB 연결 후 lsusb</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br><span class="line">Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br><span class="line">Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub</span><br><span class="line">Bus 001 Device 020: ID 046d:c31d Logitech, Inc. Media Keyboard K200</span><br><span class="line">Bus 001 Device 028: ID 2a48:5103</span><br><span class="line">Bus 001 Device 022: ID 2516:0051  </span><br><span class="line">Bus 001 Device 021: ID 046d:c077 Logitech, Inc. M105 Optical Mouse</span><br><span class="line">Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span><br></pre></td></tr></table></figure>
+
+<p>차이를 확인하셨나요?</p>
+<p><font color="gray"><i>이 마치 수수께끼 같은 느낌..</i></font></p>
+<p>정답은..</p>
+<blockquote>
+<p>Bus 001 Device 028: ID <strong>2a48</strong>:5103</p>
+</blockquote>
+<p>여기서 2a48이 제조사 번호입니다. (여기서 2a48은 ‘일반 USB 기기’를 의미하는 제조사 번호입니다.)</p>
+<p>제조사 번호와 기기ID를 파악했으니 51-android.rules 파일을 생성하여 다음과 같이 작성하면 됩니다.</p>
+<figure class="highlight plain"><figcaption><span>/etc/udev/rules.d/51-android.rules </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUBSYSTEM==&quot;usb&quot;, ATTR&#123;idVendor&#125;==&quot;2a48&quot;, MODE=&quot;0600&quot;, OWNER=&quot;woody&quot;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 …!</p>
+<br>
+
+<h3 id="AndroidManifest-xml-파일-수정"><a href="#AndroidManifest-xml-파일-수정" class="headerlink" title="AndroidManifest.xml 파일 수정"></a>AndroidManifest.xml 파일 수정</h3><p>Android Studio, IntelliJ 또는 Eclipse 등의 IDE/Tools 프로그램에서<br>AndroidManifest.xml 파일을 아래와 같이 작성이 되어 있는지 확인해주세요.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span>&gt;</span></span><br><span class="line">    (..중략)</span><br><span class="line">    android:debuggable="true"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="adb-재실행"><a href="#adb-재실행" class="headerlink" title="adb 재실행"></a>adb 재실행</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> adb가 켜져 있다면 종료 먼저 하기!</span><br><span class="line"><span class="meta">$</span> sudo adb kill-server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 아래 중 여러분의 리눅스 환경에 따라 1가지를 골라 udev 서비스를 재시작해주세요.</span><br><span class="line"><span class="meta">$</span> sudo /etc/init.d/udev restart</span><br><span class="line"><span class="meta">$</span> sudo udevadm control --reload-rules</span><br><span class="line"><span class="meta">$</span> sudo udevadm trigger </span><br><span class="line"><span class="meta">$</span> sudo reload udev</span><br><span class="line"><span class="meta">$</span> sudo service udev restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 그리고 다시 adb를 실행시켜주세요.</span><br><span class="line"><span class="meta">$</span> sudo adb start-server</span><br></pre></td></tr></table></figure>
+
+<p>이로써, no permissions 나 ??????? 가 뜨는 현상은 해결될 수 있을 것입니다.</p>
+<hr>
+<h1 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h1><ul>
+<li><a href="https://kldp.org/node/154396" rel="external nofollow noopener noreferrer" target="_blank">Writing udev rules, udev 규칙 작성법에 관하여</a></li>
+<li><a href="http://www.linux-usb.org/usb.ids" rel="external nofollow noopener noreferrer" target="_blank">usb.ids</a></li>
+<li><a href="https://developer.android.com/studio/run/device?hl=ko" rel="external nofollow noopener noreferrer" target="_blank">하드웨어 기기에서 앱 실행</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Programming/" rel="tag"># Programming</a>
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Platform/" rel="tag"># Platform</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+              <a href="/tags/Fedora/" rel="tag"># Fedora</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/08/05/Android-drawables-references-to-other-resources-are-not-supported-by-build-time-png-generation/" rel="next" title="PNG파일이 아닌 XML파일로 Drawables 파일 지정시 발생되는 에러 (Can't process attribute ... references to other resources are not supported by build-time PNG generation.)">
+                  <i class="fa fa-chevron-left"></i> PNG파일이 아닌 XML파일로 Drawables 파일 지정시 발생되는 에러 (Can't process attribute ... references to other resources are not supported by build-time PNG generation.)
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#시작"><span class="nav-number">1.</span> <span class="nav-text">시작</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#해결해봅시다"><span class="nav-number">2.</span> <span class="nav-text">해결해봅시다</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-Debugging"><span class="nav-number">2.1.</span> <span class="nav-text">USB Debugging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB-연결-모드-설정"><span class="nav-number">2.2.</span> <span class="nav-text">USB 연결 모드 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#51-android-rules"><span class="nav-number">2.3.</span> <span class="nav-text">51-android.rules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#파일-존재-유무-확인"><span class="nav-number">2.3.1.</span> <span class="nav-text">파일 존재 유무 확인</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#여기서-질문"><span class="nav-number">2.3.2.</span> <span class="nav-text">여기서 질문!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AndroidManifest-xml-파일-수정"><span class="nav-number">2.3.3.</span> <span class="nav-text">AndroidManifest.xml 파일 수정</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#adb-재실행"><span class="nav-number">2.4.</span> <span class="nav-text">adb 재실행</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#참고"><span class="nav-number">3.</span> <span class="nav-text">참고</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

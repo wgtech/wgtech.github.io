@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="임성혁님, Google Korea (Developer Relations) Open Source is a key part of Google Engineering Kubernetes, Android, Chrome, Tensorflow  임베디드 개발자 출신 - 개발자가 디자인 감각을 가지고, 협업을 할 수 있는 디자인이라고 생각한다.   What’s Mater">
+<meta name="keywords" content="Seminar,Framework,Android,Google,Google I&#x2F;O,Design,Material Design,iOS,Web,Dart,Flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google I&#x2F;O Extended &#39;18 Incheon : 새로워진 Material Design 소개">
+<meta property="og:url" content="https://wgtech.github.io/posts/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="임성혁님, Google Korea (Developer Relations) Open Source is a key part of Google Engineering Kubernetes, Android, Chrome, Tensorflow  임베디드 개발자 출신 - 개발자가 디자인 감각을 가지고, 협업을 할 수 있는 디자인이라고 생각한다.   What’s Mater">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Tabs.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Tabs-Principles.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Navigation-Drawer.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Navigation-Drawer-Principles.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Floating-Action-Button.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Floating-Action-Button-Principles.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Extended-Floating-Action-Button.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Top.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Top-Principles.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Bottom.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Bottom-Principles.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Backdrop.png">
+<meta property="og:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Backdrop-Principles.png">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google I&#x2F;O Extended &#39;18 Incheon : 새로워진 Material Design 소개">
+<meta name="twitter:description" content="임성혁님, Google Korea (Developer Relations) Open Source is a key part of Google Engineering Kubernetes, Android, Chrome, Tensorflow  임베디드 개발자 출신 - 개발자가 디자인 감각을 가지고, 협업을 할 수 있는 디자인이라고 생각한다.   What’s Mater">
+<meta name="twitter:image" content="https://wgtech.github.io/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Tabs.png">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Google I/O Extended '18 Incheon : 새로워진 Material Design 소개 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Google I/O Extended '18 Incheon : 새로워진 Material Design 소개
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-07 12:27:00" itemprop="dateCreated datePublished" datetime="2018-07-07T12:27:00+09:00">2018-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/" itemprop="url" rel="index">
+                    <span itemprop="name">Seminar</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Google/" itemprop="url" rel="index">
+                    <span itemprop="name">Google</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Google/Google-I-O/" itemprop="url" rel="index">
+                    <span itemprop="name">Google I/O</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Google/Google-I-O/Material-Design/" itemprop="url" rel="index">
+                    <span itemprop="name">Material Design</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>임성혁님, Google Korea (Developer Relations)</strong></p>
+<h1 id="Open-Source-is-a-key-part-of-Google-Engineering"><a href="#Open-Source-is-a-key-part-of-Google-Engineering" class="headerlink" title="Open Source is a key part of Google Engineering"></a>Open Source is a key part of Google Engineering</h1><ul>
+<li>Kubernetes, Android, Chrome, Tensorflow</li>
+</ul>
+<p><strong>임베디드 개발자 출신 - 개발자가 디자인 감각을 가지고, 협업을 할 수 있는 디자인이라고 생각한다.</strong></p>
+<br>
+
+<h2 id="What’s-Material-Design"><a href="#What’s-Material-Design" class="headerlink" title="What’s Material Design?"></a>What’s Material Design?</h2><ol>
+<li>2014 출시, 전폭적 지지로 성장됨. 많은 툴들이 공개됨</li>
+<li>Print design Methods<ul>
+<li>Motion provides meaning</li>
+<li>Flexible foundation</li>
+<li>Cross-platform</li>
+</ul>
+</li>
+<li>Material Design System is a set of components…</li>
+<li>Material Design System is a set of patterns…</li>
+<li><a href="https://material.io/" rel="external nofollow noopener noreferrer" target="_blank">https://material.io</a> : Guidelines</li>
+<li>Material Design Example : SHRINE</li>
+<li>Stickersheet (이런것도 있나? 하는 것들도 다 있음)</li>
+</ol>
+<br>
+
+<h2 id="What’s-new-in-Material-Design"><a href="#What’s-new-in-Material-Design" class="headerlink" title="What’s new in Material Design?"></a>What’s new in Material Design?</h2><ol>
+<li>검은색 바탕 흰색 글씨로 변경<ul>
+<li><a href="https://m2-spec.appspot.com/" rel="external nofollow noopener noreferrer" target="_blank">https://m2-spec.appspot.com/</a></li>
+</ul>
+</li>
+<li>Material System<br> <em>Material Foundation</em><br> <em>Material Guidelines</em></li>
+<li>Tools, Editor (Sketch 앱과 사이트를 통해 제공) 를 통하여 실제로 어울리는 색상을 골라주고 플러그인 형태로 Standalone 형태의 개발을 할 수 있다.<br> Gallery 는 한 Products를 개발할 때 각 서버와 플랫폼을 관리할 수 있다. 버전관리가 용이함.</li>
+</ol>
+<br>
+
+<h2 id="How-to-use-Material-Design"><a href="#How-to-use-Material-Design" class="headerlink" title="How to use Material Design ?"></a>How to use Material Design ?</h2><h3 id="Tabs-Gesture에-가장-민감한-사항-잘-이해하면-전체적으로-구조-파악이-용이하다"><a href="#Tabs-Gesture에-가장-민감한-사항-잘-이해하면-전체적으로-구조-파악이-용이하다" class="headerlink" title="Tabs : Gesture에 가장 민감한 사항. 잘 이해하면 전체적으로 구조 파악이 용이하다."></a>Tabs : Gesture에 가장 민감한 사항. 잘 이해하면 전체적으로 구조 파악이 용이하다.</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Tabs.png" alt="Tabs 사진" title="Tabs 사진"></p>
+<ol>
+<li><strong>확장이 가능하고, 정보가 있으며, 동등한 단계의 카테고리들로 구성되어야한다. (Scalable, Informative, Peers)</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Tabs-Principles.png" alt="Tabs는 확장이 가능하고, 정보가 있으며, 동등한 단계의 카테고리들로 구성되어야한다." title="Tabs는 확장이 가능하고, 정보가 있으며, 동등한 단계의 카테고리들로 구성되어야한다"></li>
+<li>메뉴 하위 구분 필수<br>아이콘 전용메뉴 제공 가능. (그러나 사용자들이 확실하게 분별할 수 있도록 설정해야한다.)<br>잘린 문자, 또는 바로 이해할 수 없게끔 줄인 문자는 사용 불가.</li>
+</ol>
+<br>
+
+<h3 id="Navigation-Drawer"><a href="#Navigation-Drawer" class="headerlink" title="Navigation Drawer"></a>Navigation Drawer</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Navigation-Drawer.png" alt="Navigation Drawer 사진" title="Navigation Drawer 사진"></p>
+<ol>
+<li><strong>조직적이며, 아이템마다 그 특성이 확인이 가능하며, 해당 상황이나 맥락별로 구분이 가능해야한다. (Organized, Identifiable, Contextual)</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Navigation-Drawer-Principles.png" alt="Navigation Drawer는 조직적이며, 아이템마다 그 특성이 확인이 가능하며, 해당 상황이나 맥락별로 구분이 가능해야한다" title="Navigation Drawer는 조직적이며, 아이템마다 그 특성이 확인이 가능하며, 해당 상황이나 맥락별로 구분이 가능해야한다"></li>
+<li>5개 이상의 메뉴를 사용할 때 권장<br>오른쪽 화면에 나오는 앱에서 사용을 해서는 안된다.<br>Label 내용을 간결하게, 폰트를 작게 하지 말기<br>동일한 다수의 아이콘 사용 불가<br>아이콘 사용유무 일관성 유지 (사용자들이 상하위 메뉴 구분이 힘들어하기 때문이다.)<br>모든 메뉴에 구분자를 사용하지 않도록 한다. (예: ListView 사용시 구분자를 사용하지 않도록)</li>
+</ol>
+<br>
+
+<h3 id="Floating-Action-Button"><a href="#Floating-Action-Button" class="headerlink" title="Floating Action Button"></a>Floating Action Button</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Floating-Action-Button.png" alt="Floating Action Button 사진" title="Floating Action Button 사진"></p>
+<ol>
+<li><strong>기능에 대해 건설적이거나 접근이 용이하며, 상황별로 구분이 가능하며, 다른 레이아웃이나 컴포넌트들에 가리지 않고 사용자들에게 우선적으로 보여져야 한다. (Constructive, Contextual, Primary)</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Floating-Action-Button-Principles.png" alt="Floating Action Button은 기능에 대해 건설적이거나 접근이 용이하며, 상황별로 구분이 가능하며, 다른 레이아웃이나 컴포넌트들에 가리지 않고 사용자들에게 우선적으로 보여져야 한다." title="Floating Action Button 은 기능에 대해 건설적이거나 접근이 용이하며, 상황별로 구분이 가능하며, 다른 레이아웃이나 컴포넌트들에 가리지 않고 사용자들에게 우선적으로 보여져야 한다."></li>
+<li>항상 떠있어야 하고 가장 맨 위로 올려있다.<br>FAB는 분산없이 하나로만 사용 권장. 누르지 않더라도 기능이 분별한 아이콘만 사용 권장.<br>Layer Badges 사용 권장하지 않음. 글씨 사용은 미권장.</li>
+</ol>
+<br>
+
+<h3 id="Extended-Floating-Action-Button"><a href="#Extended-Floating-Action-Button" class="headerlink" title="Extended Floating Action Button"></a>Extended Floating Action Button</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Extended-Floating-Action-Button.png" alt="Extended Floating Action Button 사진" title="Extended Floating Action Button 사진"></p>
+<ul>
+<li>Extended Floating Action Button 사용원칙은 Floating Action Button 과 동일하다.</li>
+</ul>
+<ol>
+<li>Text Only</li>
+<li>Wrapping Text (두 줄 이상)</li>
+</ol>
+<br>
+
+<h3 id="App-Bars-Top"><a href="#App-Bars-Top" class="headerlink" title="App Bars : Top"></a>App Bars : Top</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Top.png" alt="App Bars : Top 사진" title="App Bars : Top 사진"></p>
+<ol>
+<li><strong>지속적이어야하고, 사용자들이 원하는대로 이동할 수 있도록 유도되어야하고, 그 자체로써 위치되어져야 한다. (Persistent, Guiding, Components)</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Top-Principles.png" alt="상단 App Bar는 지속적이어야하고, 사용자들이 원하는대로 이동할 수 있도록 유도되어야하고, 그 자체로써 위치되어져야 한다." title="상단 App Bar는 지속적이어야하고, 사용자들이 원하는대로 이동할 수 있도록 유도되어야하고, 그 자체로써 위치되어져야 한다."></li>
+<li>Bar에 이미지 넣는 것을 지양.<br>두 줄 이상의 메뉴 이름 사용 불가. (…)문자 사용 불가.<br>작은 문자 크기 사용 불가</li>
+</ol>
+<br>
+
+<h3 id="App-Bars-Bottom"><a href="#App-Bars-Bottom" class="headerlink" title="App Bars : Bottom"></a>App Bars : Bottom</h3><p><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Bottom.png" alt="하단 App Bar는 역동적이며, 유연해야하며, 인체공학적이어야한다." title="App Bars : Bottom 사진"></p>
+<ol>
+<li>주로 한국인들이 사용하는 디자인. 또는 큰 화면의 휴대폰에서 편리한 메뉴 선택 사용을 도움.</li>
+<li><strong>역동적이며, 유연해야하며, 인체공학적이어야한다. (Actionable, Flexible, Ergonomic)</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-App-Bars-Bottom-Principles.png" alt="하단 App Bar는 역동적이며, 유연해야하며, 인체공학적이어야한다." title="하단 App Bar는 역동적이며, 유연해야하며, 인체공학적이어야한다."></li>
+<li>자유로운 Positioning 가능<br>FAB on a Bottom Bar (붕 떠있는 형태로 사용하면 안된다.)<br>Action이 2개 이상으로 사용 필수. Navigation 을 넣는 걸 권장하지 않음.</li>
+</ol>
+<br>
+
+<h3 id="Backdrop"><a href="#Backdrop" class="headerlink" title="Backdrop"></a>Backdrop</h3><p><strong><em>(Google I/O 2018 신기능)</em></strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Backdrop.png" alt="Backdrop 사진" title="Backdrop 사진"></p>
+<ol>
+<li><strong>필요 레이아웃들이 서로 연관되어져야하며, 즉시 그 이벤트가 보여져야하며, 상황에 맞춰 제공되어야한다. (Relevant, Immediate, Contextual</strong><br><img src="/images/2018/07/07/Google-IO-Extended-Incheon-2018-Introduce-New-Material-Design/Material-Design-Backdrop-Principles.png" alt="Backdrop은 필요 레이아웃들이 서로 연관되어져야하며, 즉시 그 이벤트가 보여져야하며, 상황에 맞춰 제공되어야한다." title="Backdrop은 필요 레이아웃들이 서로 연관되어져야하며, 즉시 그 이벤트가 보여져야하며, 상황에 맞춰 제공되어야한다."></li>
+<li>항상 보이는 것이 아니라, 임시적으로 숨겨져 있는 부분들을 제공함.<br>(Edit 할 수 있는 부분이 아니고, 단순히 Viewable 한 부분으로 제공하여야함)</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Seminar/" rel="tag"># Seminar</a>
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Google/" rel="tag"># Google</a>
+              <a href="/tags/Google-I-O/" rel="tag"># Google I/O</a>
+              <a href="/tags/Design/" rel="tag"># Design</a>
+              <a href="/tags/Material-Design/" rel="tag"># Material Design</a>
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/Web/" rel="tag"># Web</a>
+              <a href="/tags/Dart/" rel="tag"># Dart</a>
+              <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2018/07/07/Google-IO-Extended-Incheon-2018-Modern-Android-Development/" rel="prev" title="Google I/O Extended '18 Incheon : Modern Android Development">
+                  Google I/O Extended '18 Incheon : Modern Android Development <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Open-Source-is-a-key-part-of-Google-Engineering"><span class="nav-number">1.</span> <span class="nav-text">Open Source is a key part of Google Engineering</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-Material-Design"><span class="nav-number">1.1.</span> <span class="nav-text">What’s Material Design?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-new-in-Material-Design"><span class="nav-number">1.2.</span> <span class="nav-text">What’s new in Material Design?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-to-use-Material-Design"><span class="nav-number">1.3.</span> <span class="nav-text">How to use Material Design ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tabs-Gesture에-가장-민감한-사항-잘-이해하면-전체적으로-구조-파악이-용이하다"><span class="nav-number">1.3.1.</span> <span class="nav-text">Tabs : Gesture에 가장 민감한 사항. 잘 이해하면 전체적으로 구조 파악이 용이하다.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigation-Drawer"><span class="nav-number">1.3.2.</span> <span class="nav-text">Navigation Drawer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Floating-Action-Button"><span class="nav-number">1.3.3.</span> <span class="nav-text">Floating Action Button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extended-Floating-Action-Button"><span class="nav-number">1.3.4.</span> <span class="nav-text">Extended Floating Action Button</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-Bars-Top"><span class="nav-number">1.3.5.</span> <span class="nav-text">App Bars : Top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App-Bars-Bottom"><span class="nav-number">1.3.6.</span> <span class="nav-text">App Bars : Bottom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backdrop"><span class="nav-number">1.3.7.</span> <span class="nav-text">Backdrop</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

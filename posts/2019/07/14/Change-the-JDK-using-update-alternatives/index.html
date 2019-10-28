@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="다수의 JDK를 사용하게 되었습니다.Oracle에서 Java SE 유료화 정책을 본격 시행됨에 따라, OpenJDK를 사용하게 되었습니다.그 중에 Java 1.8 버전을 사용하고 있는데, 업무상 1.7 버전도 필요하게 되었습니다. 그런데 일일히 쓸 때마다 환경변수를 바꾸니 보통 번거로운 일이 아닐 수 없었습니다. 따라서 이번 글에서는 Ubuntu나 cent">
+<meta name="keywords" content="Programming,Linux,Ubuntu,Java,centOS,OpenJDK,update-alternatives">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu&#x2F;centOS 에서 Java(JDK) 버전을 빠르게 바꾸는 방법 (update-alternatives)">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/07/14/Change-the-JDK-using-update-alternatives/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="다수의 JDK를 사용하게 되었습니다.Oracle에서 Java SE 유료화 정책을 본격 시행됨에 따라, OpenJDK를 사용하게 되었습니다.그 중에 Java 1.8 버전을 사용하고 있는데, 업무상 1.7 버전도 필요하게 되었습니다. 그런데 일일히 쓸 때마다 환경변수를 바꾸니 보통 번거로운 일이 아닐 수 없었습니다. 따라서 이번 글에서는 Ubuntu나 cent">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu&#x2F;centOS 에서 Java(JDK) 버전을 빠르게 바꾸는 방법 (update-alternatives)">
+<meta name="twitter:description" content="다수의 JDK를 사용하게 되었습니다.Oracle에서 Java SE 유료화 정책을 본격 시행됨에 따라, OpenJDK를 사용하게 되었습니다.그 중에 Java 1.8 버전을 사용하고 있는데, 업무상 1.7 버전도 필요하게 되었습니다. 그런데 일일히 쓸 때마다 환경변수를 바꾸니 보통 번거로운 일이 아닐 수 없었습니다. 따라서 이번 글에서는 Ubuntu나 cent">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/07/14/Change-the-JDK-using-update-alternatives/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Ubuntu/centOS 에서 Java(JDK) 버전을 빠르게 바꾸는 방법 (update-alternatives) | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/07/14/Change-the-JDK-using-update-alternatives/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu/centOS 에서 Java(JDK) 버전을 빠르게 바꾸는 방법 (update-alternatives)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-14 10:50:48" itemprop="dateCreated datePublished" datetime="2019-07-14T10:50:48+09:00">2019-07-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>6 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="다수의-JDK를-사용하게-되었습니다"><a href="#다수의-JDK를-사용하게-되었습니다" class="headerlink" title="다수의 JDK를 사용하게 되었습니다."></a>다수의 JDK를 사용하게 되었습니다.</h1><p>Oracle에서 Java SE 유료화 정책을 본격 시행됨에 따라, OpenJDK를 사용하게 되었습니다.<br>그 중에 Java 1.8 버전을 사용하고 있는데, 업무상 1.7 버전도 필요하게 되었습니다.</p>
+<p>그런데 일일히 쓸 때마다 환경변수를 바꾸니 보통 번거로운 일이 아닐 수 없었습니다.</p>
+<p>따라서 이번 글에서는 Ubuntu나 centOS에서 <strong>update-alternatives</strong> 명령어를 활용하여,<br>JDK 버전을 적재적시(!) 바꾸는 팁을 소개하고자 합니다.</p>
+<br>
+
+<h1 id="현재-상황"><a href="#현재-상황" class="headerlink" title="현재 상황"></a>현재 상황</h1><p>우선 Java가 설치되어있는, 또는 지정되어 있는 위치와 현재 시스템에서 사용되는 JDK 버전을 확인해봅시다.</p>
+<h2 id="Java-설치-경로"><a href="#Java-설치-경로" class="headerlink" title="Java 설치 경로"></a>Java 설치 경로</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> which java</span><br><span class="line"></span><br><span class="line">/usr/bin/java</span><br></pre></td></tr></table></figure>
+
+<p>특별하게 경로를 지정하면서 설치하지 않는 이상 위와 같은 경로 또는 <strong>/usr/lib/jvm</strong> 디렉토리에 설치가 되는 것을 확인할 수가 있습니다.</p>
+<h2 id="실제-Java-버전은…"><a href="#실제-Java-버전은…" class="headerlink" title="실제 Java 버전은…"></a>실제 Java 버전은…</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> java -version</span><br><span class="line"><span class="meta">$</span> javac -version</span><br></pre></td></tr></table></figure>
+
+<p>위와 같은 명령어를 입력해보면 OpenJDK 1.7 또는 1.8 환경을 확인할 수 있습니다.</p>
+<p>어… 문제는 이제 발생됩니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openjdk-7-jdk</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 또는</span><br><span class="line"></span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br></pre></td></tr></table></figure>
+
+<p>기존 설치된 JDK에서 새로운 JDK를 설치하고 나서 버전과 경로를 확인하면<br><font color="red">새로운 버전과 그에 대한 경로로로 바뀌거나, 바뀌지 않는 문제가 발생됩니다.</font></p>
+<h2 id="따라서"><a href="#따라서" class="headerlink" title="따라서"></a>따라서</h2><p>필요 JDK 버전을 바꿔 작업하는 상황이 오면 일일히 <strong>remove</strong> 나 <strong>autoremove</strong> 또는 <strong>purge</strong>를 해야할 수도 있을 것입니다.</p>
+<br>
+
+<h1 id="update-alternatives"><a href="#update-alternatives" class="headerlink" title="update-alternatives"></a>update-alternatives</h1><p>일단 이 명령어를 간략하게 소개하자면 이름에서 보시다시피 alternative 를 update 한다는 것입니다.</p>
+<p><font color="gray"><em>뭔 설명이 그래….</em></font></p>
+<p>그러니까 ‘대안이 될 만한’, 또는 ‘선택이 가능한 요소’로 사용이 가능토록 교체해준다는 것입니다.</p>
+<h2 id="현재-겪고-있는-상황에-빗대자면"><a href="#현재-겪고-있는-상황에-빗대자면" class="headerlink" title="현재 겪고 있는 상황에 빗대자면"></a>현재 겪고 있는 상황에 빗대자면</h2><p>여기서, 선택이 가능한 요소란 OpenJDK 1.7과 1.8 입니다.<br>위 두 버전 중에 한 버전을 작업이 가능토록 설정해야하는 것입니다.</p>
+<p>저를 포함하여 Java 로 무언가를 작업하시는 분들이라면 여기서 바꿔줘야할 부분은<br>$JAVA_HOME, java, javac, javadoc, jar … 아무튼 Java와 관련된 것은 틀림 없을겁니다.</p>
+<h2 id="일단-적용해보자"><a href="#일단-적용해보자" class="headerlink" title="일단 적용해보자"></a>일단 적용해보자</h2><p>java, javac, javadoc, jar … 일일히 바꿔보죠..</p>
+<p>아, 근데 이건 좀 많은데.. 뭐 일단 해봅시다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alternatives --install &lt;link&gt; &lt;name&gt; &lt;path&gt; &lt;priority&gt;</span><br><span class="line">alternatives --remove &lt;name&gt;</span><br><span class="line">alternatives --config &lt;name&gt;</span><br><span class="line">alternatives --display &lt;name&gt;</span><br><span class="line">alternatives --set &lt;name&gt; &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>변수 없이 단순히 <strong>update-alternatives</strong> 명령어를 입력하면 위와 같은 도움말이 등장합니다.</p>
+<p>도움말 내용을 보니, 입력이 가능한 변수값에는 <strong>&lt;link&gt;</strong>, <strong>&lt;name&gt;</strong>, <strong>&lt;path&gt;</strong> 가 있습니다.</p>
+<blockquote>
+<p><strong>“아! symbolic link를 활용하는 것이군요!”</strong></p>
+</blockquote>
+<p>네, 그렇습니다.</p>
+<p>보통 <strong>update-alternatives</strong> 에서는 <strong>–config</strong> 옵션과 <strong>name</strong> 변수값을 주로 사용합니다.<br>–config 옵션을 통해 관리되는 <strong>name</strong> 값에 대한 위치 지정할 수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> update-alternatives java</span><br></pre></td></tr></table></figure>
+
+<p>라는 명령어를 입력하면,</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*+  1   /usr/lib/jvm/java-7-openjdk-amd64/bin/java</span><br><span class="line">    2   /usr/lib/jvm/java-8-openjdk-amd64/bin/java</span><br><span class="line"></span><br><span class="line">Enter to keep the current selection[+], or type selection number:</span><br></pre></td></tr></table></figure>
+
+<p>라는 화면을 확인할 수 있습니다. 이는, 1번 옵션이 곧 java라는 것을 가리키는 것을 확인할 수 있고,<br>새로운 환경으로 지정할 지 고를 수 있다는 것이죠.</p>
+<p>그러면 우리는 여기서, java를 OpenJDK 1.8로 바꾸려면 2번을 누르면 되는 것이죠!
+이렇게 javac, jar, javadoc 등을 위와 같은 명령어를 통해 변경하면 됩니다.</p>
+<p>그리고 .bashrc 나 .bash_profile (또는 사용하시는 shell 환경에 따라선 .zshrc 등) 파일에서 <strong>$JAVA_HOME</strong>을 새로 설정해줘야합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+
+<h2 id="그런데"><a href="#그런데" class="headerlink" title="그런데.."></a>그런데..</h2><p>잘 생각해보면, 일일히 이런 방법을 쓰는건 정말 불편하지 않을까요?</p>
+<blockquote>
+<p>java, jar, javadoc, $JAVA_HOME …</p>
+</blockquote>
+<p>우리가 바꿔야할 항목만 해도 최소한 4건입니다.<br>우리는 <strong>개발자</strong>이기에 일일히 명령어를 입력하는것은 굉장히 비효율적이라는 것을 알 수 있죠</p>
+<p>이렇게 입력하는 동안에, 우리의 소중한 시간 1초는 더 빨리 더 멀리 더 힘차게 가게되고,<br>내 일은 점점 더 못 하고 미루고… <font color="gray"><em>그렇게 야근을 하고…</em></font></p>
+<br>
+
+<h1 id="더-효율적으로-바꾸기"><a href="#더-효율적으로-바꾸기" class="headerlink" title="더 효율적으로 바꾸기"></a>더 효율적으로 바꾸기</h1><p>따라서 제가 일을 쉽게하는 방법을 제안하고자합니다.</p>
+<p>오래 걸렸죠? 지금부터 방법을 소개하자면…</p>
+<blockquote>
+<p><strong>1. OpenJDK 1.7, 1.8를 전부 설치합니다.</strong><br><strong>2. JDK 설치 위치를 전부 파악합니다. (보통 JDK는 /usr/lib/jvm에 설치)</strong><br><strong>3. 별도의 심볼릭 링크를 생성합니다.</strong><br><strong>4. update-alternatives를 통하여 별도의 심볼릭 링크 디렉토리의 java, javac 등을 등록합니다</strong><br><strong>5. 심볼릭 링크를 JDK1.7, JDK1.8 를 자동으로 변경할 수 있도록 쉘 스크립트나 alias로 자동화합니다.</strong></p>
+</blockquote>
+<p>입니다.</p>
+<br>
+
+<h2 id="OpenJDK-1-7-1-8를-전부-설치"><a href="#OpenJDK-1-7-1-8를-전부-설치" class="headerlink" title="OpenJDK 1.7, 1.8를 전부 설치"></a>OpenJDK 1.7, 1.8를 전부 설치</h2><p>이미 설치하는 방법은 검색하시면 너무나 잘 나와있습니다.<br>그러나 (2019.07.14 기준) 현재 OpenJDK 1.7을 단순히 명령어로 설치하기 어렵습니다.<br>따라서 launchpad.net 또는 별도의 repository 를 등록하고, 설치하면 됩니다.</p>
+<p>자세한 설명은 <a href="https://wgtech.github.io/posts/2019/07/15/Install-OpenJDK-7-on-Ubuntu-1604-xenial/">‘이 포스트’</a>에서 확인하세요!                                           </p>
+<br>
+
+<h2 id="JDK-설치-위치를-전부-파악합니다"><a href="#JDK-설치-위치를-전부-파악합니다" class="headerlink" title="JDK 설치 위치를 전부 파악합니다."></a>JDK 설치 위치를 전부 파악합니다.</h2><p><strong>sudo apt-get install</strong> 명령어를 통해 설치하면,<br>보통은 <strong>/usr/lib/jvm</strong> 디렉토리에 설치됩니다.<br>이 디렉토리에 접근하면</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ls -al</span><br><span class="line"></span><br><span class="line">drwxr-xr-x   4 root root 4096  7월 15 09:43 .</span><br><span class="line">drwxr-xr-x 136 root root 4096  7월 12 17:20 ..</span><br><span class="line">-rw-r--r--   1 root root 2439  3월 28  2016 .java-1.7.0-openjdk-amd64.jinfo</span><br><span class="line">-rw-r--r--   1 root root 2714  4월 26 12:20 .java-1.8.0-openjdk-amd64.jinfo</span><br><span class="line">lrwxrwxrwx   1 root root   20  3월 28  2016 java-1.7.0-openjdk-amd64 -&gt; java-7-openjdk-amd64</span><br><span class="line">lrwxrwxrwx   1 root root   20  4월 26 12:20 java-1.8.0-openjdk-amd64 -&gt; java-8-openjdk-amd64</span><br><span class="line">drwxr-xr-x   7 root root 4096  7월 12 17:20 java-7-openjdk-amd64</span><br><span class="line">drwxr-xr-x   7 root root 4096  7월 15 09:43 java-8-openjdk-amd64</span><br></pre></td></tr></table></figure>
+
+<p>식으로 나타나게 되는데, 심볼릭 링크는 이름대로 각 버전을 가리키는 것을 알 수 있습니다.</p>
+<br>
+
+<h2 id="별도의-심볼릭-링크를-생성합니다"><a href="#별도의-심볼릭-링크를-생성합니다" class="headerlink" title="별도의 심볼릭 링크를 생성합니다"></a>별도의 심볼릭 링크를 생성합니다</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir -R /opt/jdk</span><br><span class="line"><span class="meta">$</span> ln -s /usr/lib/jvm/java-7-openjdk /opt/jdk/current</span><br></pre></td></tr></table></figure>
+
+<p>sudo와 chown 옵션을 활용하여 개발에 지장없게끔 설정하실 필요가 있습니다.</p>
+<br>
+
+<h2 id="update-alternatives로-등록합니다"><a href="#update-alternatives로-등록합니다" class="headerlink" title="update-alternatives로 등록합니다"></a>update-alternatives로 등록합니다</h2><p>우리는 install 옵션을 통해 별도로 생성한 심볼릭 링크 디렉토리 내 파일을 등록시킵니다.</p>
+<blockquote>
+<p><strong>update-alternatives install 옵션 사용 방식</strong><br>alternatives --install &lt;link&gt; &lt;name&gt; &lt;path&gt; &lt;priority&gt;</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo update-alternatives --install /usr/bin/java java /opt/jdk/current/bin/java 1</span><br><span class="line"><span class="meta">$</span> sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>명령어 설명</strong></p>
+<ol>
+<li>sudo : 반드시 시스템 root 권한이 필요하기에 입력해야합니다.</li>
+<li>update-alternatives : 앞서 언급했습니다~</li>
+<li>--install : update-alternatives로, 새로운 심볼릭 링크를 등록할 것임을 알리는 옵션입니다.</li>
+<li>/usr/bin/java : 최종적으로 /usr/bin/java 로 심볼릭 링크가 저장될 것입니다. (which java 입력시 나타나는 심볼릭 링크 위치입니다.)</li>
+<li>java : java 라는 명령어를 쳐서 java 기능을 활용할 것이기에 입력해야합니다</li>
+<li>/opt/jdk/current/bin/java : 별도의 심볼릭 링크를 만들었습니다. 버전을 자유롭게 활용하기 위해 새로 만든 심볼릭 링크입니다.</li>
+<li>1 : 숫자가 <strong>낮을수록</strong> 우선순위는 <strong>높습니다</strong>.</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">대체 항목 java에 대해 (/usr/bin/java 제공) 3개 선택이 있습니다.</span><br><span class="line"></span><br><span class="line">  선택       경로                                       우선순� 상태</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">  0            /usr/lib/jvm/java-8-openjdk-amd64/bin/java   1081      자동 모드</span><br><span class="line">* 1            /opt/jdk/current/bin/java                    1         수동 모드</span><br><span class="line">  2            /usr/lib/jvm/java-7-openjdk-amd64/bin/java   1071      수동 모드</span><br><span class="line">  3            /usr/lib/jvm/java-8-openjdk-amd64/bin/java   1081      수동 모드</span><br><span class="line"></span><br><span class="line">Press &lt;enter&gt; to keep the current choice[*], or type selection number: 1</span><br></pre></td></tr></table></figure>
+
+<p>위와 같은 방법으로 <strong>javac</strong>, <strong>jar</strong>, <strong>javadoc</strong> 등을 등록합니다.</p>
+<p>그리고 <strong>update-alternatives –display</strong> 옵션을 사용하여 정상적으로 등록되어 있는지 확인합니다.</p>
+<br>
+
+<h2 id="쉘-스크립트나-alias로-자동화합니다"><a href="#쉘-스크립트나-alias로-자동화합니다" class="headerlink" title="쉘 스크립트나 alias로 자동화합니다"></a>쉘 스크립트나 alias로 자동화합니다</h2><p>저는 개인적으로 alias 설정이 가장 무난하고 쉽다고 생각합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME="/opt/jdk/current"</span><br><span class="line">export PATH="$PATH:$JAVA_HOME/bin"</span><br><span class="line"></span><br><span class="line">alias chjdk7="rm /opt/jdk/current &amp;&amp; ln -s /usr/lib/jvm/java-1.7.0-openjdk-amd64"</span><br><span class="line">alias chjdk8="rm /opt/jdk/current &amp;&amp; ln -s /usr/lib/jvm/java-1.8.0-openjdk-amd64"</span><br></pre></td></tr></table></figure>
+
+<p>그리고 source 명령어를 입력하여 쉘 환경변수를 등록하면 됩니다.<br>저는 chjdk7 과 chjdk8 명령어를 alias로 등록하여 사용합니다!</p>
+<figure class="highlight shell"><figcaption><span>chjdk7 명령어 입력시</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> java -version</span><br><span class="line"></span><br><span class="line">java version "1.7.0_95"</span><br><span class="line">OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-3)</span><br><span class="line">OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> javac -version</span><br><span class="line">javac 1.7.0_95</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><figcaption><span>chjdk8 명령어 입력시</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> java -version</span><br><span class="line">openjdk version "1.8.0_212"</span><br><span class="line">OpenJDK Runtime Environment (build 1.8.0_212-8u212-b03-0ubuntu1.16.04.1-b03)</span><br><span class="line">OpenJDK 64-Bit Server VM (build 25.212-b03, mixed mode)</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> javac -version</span><br><span class="line">javac 1.8.0_212</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>2019년 9월 30일 월요일 오후 11시 35분</p>
+<ul>
+<li>오타 수정</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Programming/" rel="tag"># Programming</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/centOS/" rel="tag"># centOS</a>
+              <a href="/tags/OpenJDK/" rel="tag"># OpenJDK</a>
+              <a href="/tags/update-alternatives/" rel="tag"># update-alternatives</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/07/01/TAcademy-54-Kubernetes-4-Pratice/" rel="next" title="T아카데미 토크ON세미나 54차 '쿠버네티스 살펴보기' : 4강 실습하기 Kubernetes">
+                  <i class="fa fa-chevron-left"></i> T아카데미 토크ON세미나 54차 '쿠버네티스 살펴보기' : 4강 실습하기 Kubernetes
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/07/15/Install-OpenJDK-7-on-Ubuntu-1604-xenial/" rel="prev" title="Ubuntu 16.04 (xenial) 환경에서 OpenJDK 7 설치하기">
+                  Ubuntu 16.04 (xenial) 환경에서 OpenJDK 7 설치하기 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#다수의-JDK를-사용하게-되었습니다"><span class="nav-number">1.</span> <span class="nav-text">다수의 JDK를 사용하게 되었습니다.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#현재-상황"><span class="nav-number">2.</span> <span class="nav-text">현재 상황</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-설치-경로"><span class="nav-number">2.1.</span> <span class="nav-text">Java 설치 경로</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#실제-Java-버전은…"><span class="nav-number">2.2.</span> <span class="nav-text">실제 Java 버전은…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#따라서"><span class="nav-number">2.3.</span> <span class="nav-text">따라서</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#update-alternatives"><span class="nav-number">3.</span> <span class="nav-text">update-alternatives</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#현재-겪고-있는-상황에-빗대자면"><span class="nav-number">3.1.</span> <span class="nav-text">현재 겪고 있는 상황에 빗대자면</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#일단-적용해보자"><span class="nav-number">3.2.</span> <span class="nav-text">일단 적용해보자</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#그런데"><span class="nav-number">3.3.</span> <span class="nav-text">그런데..</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#더-효율적으로-바꾸기"><span class="nav-number">4.</span> <span class="nav-text">더 효율적으로 바꾸기</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenJDK-1-7-1-8를-전부-설치"><span class="nav-number">4.1.</span> <span class="nav-text">OpenJDK 1.7, 1.8를 전부 설치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK-설치-위치를-전부-파악합니다"><span class="nav-number">4.2.</span> <span class="nav-text">JDK 설치 위치를 전부 파악합니다.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#별도의-심볼릭-링크를-생성합니다"><span class="nav-number">4.3.</span> <span class="nav-text">별도의 심볼릭 링크를 생성합니다</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update-alternatives로-등록합니다"><span class="nav-number">4.4.</span> <span class="nav-text">update-alternatives로 등록합니다</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#쉘-스크립트나-alias로-자동화합니다"><span class="nav-number">4.5.</span> <span class="nav-text">쉘 스크립트나 alias로 자동화합니다</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

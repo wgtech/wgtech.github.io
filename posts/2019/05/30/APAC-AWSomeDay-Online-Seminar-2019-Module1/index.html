@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="클라우드란? 인터넷을 통해 IT 리소스와 애플리케이션을 온디맨드로 제공되는 서비스  민첩성에 대한 3가지 요소 속도, 실험, 변화  민첩성 증진을 위한 필요 사항 속도와 글로벌 접근성 향상 실험 증가 코드로서의 운영 안전한 실험 서로 다른 구성을 사용해 테스트 AWS CloudFormation 을 사용한 템플릿화된 환경   혁신 향상 낮은 비용/위험의 신속">
+<meta name="keywords" content="Seminar,Amazon Web Services,AWS,AWSomeDay,Environment,Cloud,Cloud Services">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module1/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="클라우드란? 인터넷을 통해 IT 리소스와 애플리케이션을 온디맨드로 제공되는 서비스  민첩성에 대한 3가지 요소 속도, 실험, 변화  민첩성 증진을 위한 필요 사항 속도와 글로벌 접근성 향상 실험 증가 코드로서의 운영 안전한 실험 서로 다른 구성을 사용해 테스트 AWS CloudFormation 을 사용한 템플릿화된 환경   혁신 향상 낮은 비용/위험의 신속">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념">
+<meta name="twitter:description" content="클라우드란? 인터넷을 통해 IT 리소스와 애플리케이션을 온디맨드로 제공되는 서비스  민첩성에 대한 3가지 요소 속도, 실험, 변화  민첩성 증진을 위한 필요 사항 속도와 글로벌 접근성 향상 실험 증가 코드로서의 운영 안전한 실험 서로 다른 구성을 사용해 테스트 AWS CloudFormation 을 사용한 템플릿화된 환경   혁신 향상 낮은 비용/위험의 신속">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          APAC AWSomeDay Online Seminar 2019 : 모듈1. AWS 클라우드 개념
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-30 08:36:00" itemprop="dateCreated datePublished" datetime="2019-05-30T08:36:00+09:00">2019-05-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/" itemprop="url" rel="index">
+                    <span itemprop="name">Seminar</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Amazon-Web-Services/" itemprop="url" rel="index">
+                    <span itemprop="name">Amazon Web Services</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Amazon-Web-Services/AWSomeDay/" itemprop="url" rel="index">
+                    <span itemprop="name">AWSomeDay</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="클라우드란"><a href="#클라우드란" class="headerlink" title="클라우드란?"></a>클라우드란?</h1><ul>
+<li>인터넷을 통해 IT 리소스와 애플리케이션을 온디맨드로 제공되는 서비스</li>
+</ul>
+<h1 id="민첩성에-대한-3가지-요소"><a href="#민첩성에-대한-3가지-요소" class="headerlink" title="민첩성에 대한 3가지 요소"></a>민첩성에 대한 3가지 요소</h1><ul>
+<li>속도, 실험, 변화</li>
+</ul>
+<h3 id="민첩성-증진을-위한-필요-사항"><a href="#민첩성-증진을-위한-필요-사항" class="headerlink" title="민첩성 증진을 위한 필요 사항"></a>민첩성 증진을 위한 필요 사항</h3><ol>
+<li>속도와 글로벌 접근성 향상</li>
+<li>실험 증가<ul>
+<li>코드로서의 운영</li>
+<li>안전한 실험</li>
+<li>서로 다른 구성을 사용해 테스트</li>
+<li>AWS CloudFormation 을 사용한 템플릿화된 환경</li>
+</ul>
+</li>
+<li>혁신 향상<ul>
+<li>낮은 비용/위험의 신속한 실험</li>
+<li>더 많은 실험을 더 자주 수행</li>
+</ul>
+</li>
+<li>AWS 인프라<ul>
+<li>컴퓨팅 리소스의 탄력성, 확장성 및 안정성</li>
+<li>리전</li>
+<li>가용 영역</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Seminar/" rel="tag"># Seminar</a>
+              <a href="/tags/Amazon-Web-Services/" rel="tag"># Amazon Web Services</a>
+              <a href="/tags/AWS/" rel="tag"># AWS</a>
+              <a href="/tags/AWSomeDay/" rel="tag"># AWSomeDay</a>
+              <a href="/tags/Environment/" rel="tag"># Environment</a>
+              <a href="/tags/Cloud/" rel="tag"># Cloud</a>
+              <a href="/tags/Cloud-Services/" rel="tag"># Cloud Services</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/05/29/Lets-Build-Tensorflow-CPU-With-Your-Mac/" rel="next" title="macOS로 CPU용 Tensorflow 직접 빌드해보기">
+                  <i class="fa fa-chevron-left"></i> macOS로 CPU용 Tensorflow 직접 빌드해보기
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module2/" rel="prev" title="APAC AWSomeDay Online Seminar 2019 : 모듈2. AWS 핵심 서비스">
+                  APAC AWSomeDay Online Seminar 2019 : 모듈2. AWS 핵심 서비스 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#클라우드란"><span class="nav-number">1.</span> <span class="nav-text">클라우드란?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#민첩성에-대한-3가지-요소"><span class="nav-number">2.</span> <span class="nav-text">민첩성에 대한 3가지 요소</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#민첩성-증진을-위한-필요-사항"><span class="nav-number">2.0.1.</span> <span class="nav-text">민첩성 증진을 위한 필요 사항</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

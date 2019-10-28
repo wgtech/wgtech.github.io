@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="요금 기본 정보지불 조건트래픽 사용량에 따른 비용 지불 사용하는 서비스에 대한 비용만 지불, 대규모 선결제 금액이 없습니다.  예약하는 경우 지불 비용 감소 전체 선결제 : AURI (All Upfront) 부분 선결제 : PRUI (Partial Upfront) 선결제 없음 : NURI (No Upfront)  더 많이 사용할 수록 단위당 더 적은 비용">
+<meta name="keywords" content="Seminar,Amazon Web Services,AWS,AWSomeDay,Environment,Cloud,Cloud Services">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APAC AWSomeDay Online Seminar 2019 : 모듈5. AWS 요금 및 지원">
+<meta property="og:url" content="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module5/index.html">
+<meta property="og:site_name" content="wgtech.dev">
+<meta property="og:description" content="요금 기본 정보지불 조건트래픽 사용량에 따른 비용 지불 사용하는 서비스에 대한 비용만 지불, 대규모 선결제 금액이 없습니다.  예약하는 경우 지불 비용 감소 전체 선결제 : AURI (All Upfront) 부분 선결제 : PRUI (Partial Upfront) 선결제 없음 : NURI (No Upfront)  더 많이 사용할 수록 단위당 더 적은 비용">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T13:52:48.683Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="APAC AWSomeDay Online Seminar 2019 : 모듈5. AWS 요금 및 지원">
+<meta name="twitter:description" content="요금 기본 정보지불 조건트래픽 사용량에 따른 비용 지불 사용하는 서비스에 대한 비용만 지불, 대규모 선결제 금액이 없습니다.  예약하는 경우 지불 비용 감소 전체 선결제 : AURI (All Upfront) 부분 선결제 : PRUI (Partial Upfront) 선결제 없음 : NURI (No Upfront)  더 많이 사용할 수록 단위당 더 적은 비용">
+
+<link rel="canonical" href="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>APAC AWSomeDay Online Seminar 2019 : 모듈5. AWS 요금 및 지원 | wgtech.dev</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wgtech.dev</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://wgtech.github.io/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wgtech">
+      <meta itemprop="description" content="Take a Challenge, Efficiency Coding, Grow up with team">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wgtech.dev">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          APAC AWSomeDay Online Seminar 2019 : 모듈5. AWS 요금 및 지원
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-30 12:15:00" itemprop="dateCreated datePublished" datetime="2019-05-30T12:15:00+09:00">2019-05-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 22:52:48" itemprop="dateModified" datetime="2019-10-28T22:52:48+09:00">2019-10-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/" itemprop="url" rel="index">
+                    <span itemprop="name">Seminar</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Amazon-Web-Services/" itemprop="url" rel="index">
+                    <span itemprop="name">Amazon Web Services</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Seminar/Amazon-Web-Services/AWSomeDay/" itemprop="url" rel="index">
+                    <span itemprop="name">AWSomeDay</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="요금-기본-정보"><a href="#요금-기본-정보" class="headerlink" title="요금 기본 정보"></a>요금 기본 정보</h1><h2 id="지불-조건"><a href="#지불-조건" class="headerlink" title="지불 조건"></a>지불 조건</h2><h3 id="트래픽-사용량에-따른-비용-지불"><a href="#트래픽-사용량에-따른-비용-지불" class="headerlink" title="트래픽 사용량에 따른 비용 지불"></a>트래픽 사용량에 따른 비용 지불</h3><ul>
+<li>사용하는 서비스에 대한 비용만 지불, 대규모 선결제 금액이 없습니다.</li>
+</ul>
+<h3 id="예약하는-경우-지불-비용-감소"><a href="#예약하는-경우-지불-비용-감소" class="headerlink" title="예약하는 경우 지불 비용 감소"></a>예약하는 경우 지불 비용 감소</h3><ul>
+<li>전체 선결제 : AURI (All Upfront)</li>
+<li>부분 선결제 : PRUI (Partial Upfront)</li>
+<li>선결제 없음 : NURI (No Upfront)</li>
+</ul>
+<h3 id="더-많이-사용할-수록-단위당-더-적은-비용-지불"><a href="#더-많이-사용할-수록-단위당-더-적은-비용-지불" class="headerlink" title="더 많이 사용할 수록 단위당 더 적은 비용 지불"></a>더 많이 사용할 수록 단위당 더 적은 비용 지불</h3><ul>
+<li>대량 구매 할인 실현</li>
+</ul>
+<h3 id="AWS-규모가-커짐에-따라-더-적은-비용-지불"><a href="#AWS-규모가-커짐에-따라-더-적은-비용-지불" class="headerlink" title="AWS 규모가 커짐에 따라 더 적은 비용 지불"></a>AWS 규모가 커짐에 따라 더 적은 비용 지불</h3><h3 id="사용자-지정-요금"><a href="#사용자-지정-요금" class="headerlink" title="사용자 지정 요금"></a>사용자 지정 요금</h3><ul>
+<li>고유한 요구사항 있는 대용량 프로젝트에 따라 요금 선택 가능</li>
+<li>AWS 프리티어 (최대 1년, 특정 서비스와 옵션 제한)</li>
+</ul>
+<br>
+
+<h2 id="추가-요금-없는-AWS-서비스"><a href="#추가-요금-없는-AWS-서비스" class="headerlink" title="추가 요금 없는 AWS 서비스"></a>추가 요금 없는 AWS 서비스</h2><ul>
+<li>Amazon VPC</li>
+<li>AWS Elastic Beanstalk</li>
+<li>AWS CloudFormation</li>
+<li>AWS IAM</li>
+<li>Auto Scaling</li>
+<li>AWS OpsWorks</li>
+</ul>
+<br>
+
+<h1 id="AWS-지불-내역"><a href="#AWS-지불-내역" class="headerlink" title="AWS 지불 내역"></a>AWS 지불 내역</h1><h2 id="AWS-기초-특성에-대한-비용-지불"><a href="#AWS-기초-특성에-대한-비용-지불" class="headerlink" title="AWS 기초 특성에 대한 비용 지불"></a>AWS 기초 특성에 대한 비용 지불</h2><ul>
+<li>컴퓨팅</li>
+<li>스토리지</li>
+<li>아웃바운드 데이터 전송 (Amazon EC2, S3 등에서)</li>
+</ul>
+<h2 id="무료"><a href="#무료" class="headerlink" title="무료"></a>무료</h2><ul>
+<li>인바운드 데이터 전송</li>
+<li>동일 리전 내 서비스간 데이터 전송</li>
+</ul>
+<hr>
+<h1 id="AWS-서비스와-가격"><a href="#AWS-서비스와-가격" class="headerlink" title="AWS 서비스와 가격"></a>AWS 서비스와 가격</h1><h2 id="Amazon-EC2"><a href="#Amazon-EC2" class="headerlink" title="Amazon EC2"></a>Amazon EC2</h2><ul>
+<li><strong>Clock-초/시간당 청구</strong><ul>
+<li>리소스가 실행되고 있을때만 요금 청구</li>
+</ul>
+</li>
+<li><strong>인스턴스 구성</strong><ul>
+<li>인스턴스의 물리적 용량</li>
+<li>AWS 리전, OS, 코어 수, 메모리에 따라 요금이 변동됨.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Amazon-S3"><a href="#Amazon-S3" class="headerlink" title="Amazon S3"></a>Amazon S3</h2><ul>
+<li>요청 수 / 유형 (GET 요청에 대한 요율이 다름)</li>
+<li>스토리지</li>
+<li>데이터 전송</li>
+</ul>
+<h2 id="Amazon-EBS"><a href="#Amazon-EBS" class="headerlink" title="Amazon EBS"></a>Amazon EBS</h2><ul>
+<li>EBS 볼륨은 인스턴스와 별개로 유지</li>
+<li>클라우드 가상 디스크와 유사</li>
+<li>볼륨 유형에 따라 다르게 요금 제공<ul>
+<li>프로비저닝되는 용량에 따라 요금이 부과</li>
+<li>범용 SSD, 프로비저닝된 IOPS(SSD), 마그네틱</li>
+</ul>
+</li>
+<li>스냅샷 : 저장된 데이터의 월별 GB당 추가.</li>
+<li>데이터 전송 : 인바운드 데이터 전송은 무료이며, 아웃바운드 데이터 전송은 계층화.</li>
+</ul>
+<h2 id="Amazon-RDS"><a href="#Amazon-RDS" class="headerlink" title="Amazon RDS"></a>Amazon RDS</h2><ul>
+<li><strong>DB 구매 유형</strong><ul>
+<li>온디맨드 데이터베이스 인스턴스 : 시간당</li>
+<li>예약 데이터베이스 인스턴스 : 선결제 금액</li>
+</ul>
+</li>
+<li><strong>다수의 DB 인스턴스</strong><ul>
+<li>피크로드를 처리하도록 다수의 DB 인스턴스를 프로비저닝 할 때</li>
+</ul>
+</li>
+<li>배포 유형<ul>
+<li>단일 가용 영역 또는, 다중 가용 영역</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="AWS-에서-제공되는-유틸리티"><a href="#AWS-에서-제공되는-유틸리티" class="headerlink" title="AWS 에서 제공되는 유틸리티"></a>AWS 에서 제공되는 유틸리티</h1><h2 id="AWS-TCO-계산기"><a href="#AWS-TCO-계산기" class="headerlink" title="AWS TCO 계산기"></a>AWS TCO 계산기</h2><p><a href="https://awstcocalculator.com" rel="external nofollow noopener noreferrer" target="_blank"><strong>https://awstcocalculator.com</strong></a></p>
+<ul>
+<li>비용 절감 효과 추정</li>
+<li>세부 보고서 제공</li>
+<li>시뮬레이션</li>
+</ul>
+<h1 id="AWS-Support-플랜"><a href="#AWS-Support-플랜" class="headerlink" title="AWS Support 플랜"></a>AWS Support 플랜</h1><ul>
+<li>도구와 전문성의 고유한 조합 제공</li>
+<li>선제적 지침 : Technical Assistance Management (TAM)</li>
+<li>모범 사례 : Trusted Advisor</li>
+<li>계정 지원 : AWS Support 컨시어지</li>
+<li>4가지의 특정 플랜 존재<ol>
+<li>Basic Support Plan<ol>
+<li>고객 서비스</li>
+<li>설명서</li>
+<li>지원 및 포럼</li>
+<li>연중무휴 24시간</li>
+<li>Personal Health Dashboard 액세스 지원</li>
+</ol>
+</li>
+<li>Developer Support Plan<ol>
+<li>AWS 초기 개발 및 테스트 고객을 위한 리소스<ol>
+<li>지침 및 기술지원</li>
+<li>AWS 신속 업무</li>
+<li>비 Production Work 등에 대한 지원</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Business Support Plan<ol>
+<li>여러 서비스 활성화 되어 있거나 주요 서비스를 폭넓게 사용</li>
+<li>확장성 및 보안성에 중요한 리소스 제공</li>
+</ol>
+</li>
+<li>Enterprise Support Plan<ol>
+<li>AWS에서 Mission Critical Work plan 등을 원하는 고객</li>
+<li>모범사례에 따른 Work-Load 구축</li>
+<li>기타 서비스로부터 Migration 수행을 원하는 고객사</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h1 id="채팅창-꿀팁"><a href="#채팅창-꿀팁" class="headerlink" title="채팅창 꿀팁"></a>채팅창 꿀팁</h1><ul>
+<li>일단 온디멘드로 시작하다가 장기로 가면 예약 인스턴스로 넘어가면 되는거 같아요.</li>
+<li>RDS 가 비용안 비싸고 디비 데이터 보호에 아주 좋다고 하더라고요.</li>
+<li>rds 쓰는게 HA 까지 하다보면 더 나을꺼 같아요</li>
+<li>보안 백업 등등의 관리를 모두 할수있다 라면 ec2에</li>
+<li>r5.large라 그리 크지않은거 쓰고 있는데 제법나오요 (reader writer구성 )</li>
+<li>뭐 안되거나 잘못됏을때 무조건 연락해서 지원받아야됩니다.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Seminar/" rel="tag"># Seminar</a>
+              <a href="/tags/Amazon-Web-Services/" rel="tag"># Amazon Web Services</a>
+              <a href="/tags/AWS/" rel="tag"># AWS</a>
+              <a href="/tags/AWSomeDay/" rel="tag"># AWSomeDay</a>
+              <a href="/tags/Environment/" rel="tag"># Environment</a>
+              <a href="/tags/Cloud/" rel="tag"># Cloud</a>
+              <a href="/tags/Cloud-Services/" rel="tag"># Cloud Services</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/2019/05/30/APAC-AWSomeDay-Online-Seminar-2019-Module4/" rel="next" title="APAC AWSomeDay Online Seminar 2019 : 모듈4. AWS 아키텍쳐 설계">
+                  <i class="fa fa-chevron-left"></i> APAC AWSomeDay Online Seminar 2019 : 모듈4. AWS 아키텍쳐 설계
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/2019/06/07/Android-Found-data-binding-Errors/" rel="prev" title="Data Binding 작업 후, 'Found data binding errors. msg:Identifiers must have user defined types from the XML file.' 발생시">
+                  Data Binding 작업 후, 'Found data binding errors. msg:Identifiers must have user defined types from the XML file.' 발생시 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#요금-기본-정보"><span class="nav-number">1.</span> <span class="nav-text">요금 기본 정보</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#지불-조건"><span class="nav-number">1.1.</span> <span class="nav-text">지불 조건</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#트래픽-사용량에-따른-비용-지불"><span class="nav-number">1.1.1.</span> <span class="nav-text">트래픽 사용량에 따른 비용 지불</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#예약하는-경우-지불-비용-감소"><span class="nav-number">1.1.2.</span> <span class="nav-text">예약하는 경우 지불 비용 감소</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#더-많이-사용할-수록-단위당-더-적은-비용-지불"><span class="nav-number">1.1.3.</span> <span class="nav-text">더 많이 사용할 수록 단위당 더 적은 비용 지불</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AWS-규모가-커짐에-따라-더-적은-비용-지불"><span class="nav-number">1.1.4.</span> <span class="nav-text">AWS 규모가 커짐에 따라 더 적은 비용 지불</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#사용자-지정-요금"><span class="nav-number">1.1.5.</span> <span class="nav-text">사용자 지정 요금</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#추가-요금-없는-AWS-서비스"><span class="nav-number">1.2.</span> <span class="nav-text">추가 요금 없는 AWS 서비스</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-지불-내역"><span class="nav-number">2.</span> <span class="nav-text">AWS 지불 내역</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-기초-특성에-대한-비용-지불"><span class="nav-number">2.1.</span> <span class="nav-text">AWS 기초 특성에 대한 비용 지불</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#무료"><span class="nav-number">2.2.</span> <span class="nav-text">무료</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-서비스와-가격"><span class="nav-number">3.</span> <span class="nav-text">AWS 서비스와 가격</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Amazon-EC2"><span class="nav-number">3.1.</span> <span class="nav-text">Amazon EC2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Amazon-S3"><span class="nav-number">3.2.</span> <span class="nav-text">Amazon S3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Amazon-EBS"><span class="nav-number">3.3.</span> <span class="nav-text">Amazon EBS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Amazon-RDS"><span class="nav-number">3.4.</span> <span class="nav-text">Amazon RDS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-에서-제공되는-유틸리티"><span class="nav-number">4.</span> <span class="nav-text">AWS 에서 제공되는 유틸리티</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS-TCO-계산기"><span class="nav-number">4.1.</span> <span class="nav-text">AWS TCO 계산기</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AWS-Support-플랜"><span class="nav-number">5.</span> <span class="nav-text">AWS Support 플랜</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#채팅창-꿀팁"><span class="nav-number">6.</span> <span class="nav-text">채팅창 꿀팁</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="wgtech" src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">wgtech</p>
+  <div class="site-description" itemprop="description">Take a Challenge, Efficiency Coding, Grow up with team</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wgtech</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">1:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="external nofollow noopener noreferrer" target="_blank">NexT.Muse</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
